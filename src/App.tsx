@@ -29,9 +29,10 @@ import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { authProvider } from "./authProvider";
-
+import { ThemeProvider } from "@/components/theme-provider"
 function App() {
   return (
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <BrowserRouter>
           <Refine
             dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
@@ -113,7 +114,8 @@ function App() {
               </Route>
             </Routes>
           </Refine>
-    </BrowserRouter>
+        </BrowserRouter>
+      </ThemeProvider>
   );
 }
 

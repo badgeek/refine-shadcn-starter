@@ -64,5 +64,37 @@
   body {
     @apply bg-background text-foreground;
   }
-}
+  .layout {
+    @apply flex flex-col gap-1 md:flex-row;
+  }
 
+  .layout .content {
+    @apply flex flex-grow flex-col;
+  }
+
+  .breadcrumb {
+    @apply flex gap-6 border-b p-2;
+    list-style-type: "/  ";
+  }
+
+  .breadcrumb a {
+    @apply text-primary;
+    text-decoration: none;
+  }
+
+  .menu {
+    @apply mx-2 flex items-center justify-between border-gray-400 bg-slate-100 px-1 py-2 md:max-h-fit md:min-h-screen md:min-w-48 md:max-w-48 md:flex-col md:items-start md:justify-start md:px-0;
+  }
+
+  .menu a {
+    @apply text-gray-950;
+  }
+
+  .menu .active {
+    @apply font-bold;
+  }
+
+  .menu ul {
+    @apply flex pl-4 md:flex-col md:justify-end;
+  }
+}

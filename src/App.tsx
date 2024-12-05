@@ -1,21 +1,15 @@
 import {
   Refine,
-  GitHubBanner,
-  WelcomePage,
   Authenticated,
   AuthPage,
   ErrorComponent,
 } from "@refinedev/core";
-import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
-import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
 import dataProvider from "@refinedev/simple-rest";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import routerBindings, {
   NavigateToResource,
   CatchAllNavigate,
-  UnsavedChangesNotifier,
-  DocumentTitleHandler,
 } from "@refinedev/react-router-v6";
 import {
   BlogPostList,
@@ -39,9 +33,6 @@ import { authProvider } from "./authProvider";
 function App() {
   return (
     <BrowserRouter>
-      <GitHubBanner />
-      <RefineKbarProvider>
-        <DevtoolsProvider>
           <Refine
             dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
             routerProvider={routerBindings}
@@ -121,14 +112,7 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword />} />
               </Route>
             </Routes>
-
-            <RefineKbar />
-            <UnsavedChangesNotifier />
-            <DocumentTitleHandler />
           </Refine>
-          <DevtoolsPanel />
-        </DevtoolsProvider>
-      </RefineKbarProvider>
     </BrowserRouter>
   );
 }

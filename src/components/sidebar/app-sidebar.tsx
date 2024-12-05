@@ -16,12 +16,13 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useTheme } from "@/components/theme-provider"
 import { Sun, Moon } from "lucide-react"
+import { Link } from "@refinedev/core"
 
 // Menu items.
 const items = [
   {
     title: "Home", 
-    url: "#",
+    url: "/blog-posts",
     icon: Home,
   },
   {
@@ -89,10 +90,10 @@ function SidebarMenuItems({ items }: { items: MenuItemType[] }) {
       {items.map((item) => (
         <SidebarMenuItem key={item.title}>
           <SidebarMenuButton asChild>
-            <a href={item.url}>
+            <Link to={item.url}>
               <item.icon />
               <span>{item.title}</span>
-            </a>
+            </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
       ))}

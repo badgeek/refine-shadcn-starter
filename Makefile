@@ -1,45 +1,44 @@
 PHONY: help
 help:
 	@echo "Available commands:"
-	@echo "  install-shadcn-all  Install all shadcn-ui components"
+	@echo "  install-shadcn-all  Install all shadcn components"
 
 PHONY: install-shadcn-all
 install-shadcn-all:
-	npx shadcn-ui@latest add alert-dialog
-	npx shadcn-ui@latest add alert
-	npx shadcn-ui@latest add aspect-ratio
-	npx shadcn-ui@latest add avatar
-	npx shadcn-ui@latest add badge
-	npx shadcn-ui@latest add button
-	npx shadcn-ui@latest add calendar
-	npx shadcn-ui@latest add card
-	npx shadcn-ui@latest add carousel
-	npx shadcn-ui@latest add checkbox
-	npx shadcn-ui@latest add collapsible
-	npx shadcn-ui@latest add command
-	npx shadcn-ui@latest add context-menu
-	npx shadcn-ui@latest add dialog
-	npx shadcn-ui@latest add dropdown-menu
-	npx shadcn-ui@latest add form
-	npx shadcn-ui@latest add hover-card
-	npx shadcn-ui@latest add input
-	npx shadcn-ui@latest add label
-	npx shadcn-ui@latest add menubar
-	npx shadcn-ui@latest add navigation-menu
-	npx shadcn-ui@latest add popover
-	npx shadcn-ui@latest add progress
-	npx shadcn-ui@latest add radio-group
-	npx shadcn-ui@latest add scroll-area
-	npx shadcn-ui@latest add select
-	npx shadcn-ui@latest add separator
-	npx shadcn-ui@latest add sheet
-	npx shadcn-ui@latest add skeleton
-	npx shadcn-ui@latest add slider
-	npx shadcn-ui@latest add switch
-	npx shadcn-ui@latest add table
-	npx shadcn-ui@latest add tabs
-	npx shadcn-ui@latest add textarea
-	npx shadcn-ui@latest add toast
-	npx shadcn-ui@latest add toggle
-	npx shadcn-ui@latest add tooltip
-
+	pnpx shadcn@latest add alert-dialog
+	pnpx shadcn@latest add alert
+	pnpx shadcn@latest add aspect-ratio
+	pnpx shadcn@latest add avatar
+	pnpx shadcn@latest add badge
+	pnpx shadcn@latest add button
+	pnpx shadcn@latest add calendar
+	pnpx shadcn@latest add card
+	pnpx shadcn@latest add carousel
+	pnpx shadcn@latest add checkbox
+	pnpx shadcn@latest add collapsible
+	pnpx shadcn@latest add command
+	pnpx shadcn@latest add context-menu
+	pnpx shadcn@latest add dialog
+	pnpx shadcn@latest add dropdown-menu
+	pnpx shadcn@latest add form
+	pnpx shadcn@latest add hover-card
+	pnpx shadcn@latest add input
+	pnpx shadcn@latest add label
+	pnpx shadcn@latest add menubar
+	pnpx shadcn@latest add navigation-menu
+	pnpx shadcn@latest add popover
+	pnpx shadcn@latest add progress
+	pnpx shadcn@latest add radio-group
+	pnpx shadcn@latest add scroll-area
+	pnpx shadcn@latest add select
+	pnpx shadcn@latest add separator
+	pnpx shadcn@latest add sheet
+	pnpx shadcn@latest add skeleton
+	pnpx shadcn@latest add slider
+	pnpx shadcn@latest add switch
+	pnpx shadcn@latest add table
+	pnpx shadcn@latest add tabs
+	pnpx shadcn@latest add textarea
+	pnpx shadcn@latest add toast
+	pnpx shadcn@latest add toggle
+	pnpx shadcn@latest add tooltip

@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings, ChevronDown, Users, Mail, FileText, Bell, User2, ChevronUp } from "lucide-react"
+import { Calendar, Home, Inbox, Search, Settings, ChevronDown, Users, Mail, FileText, Bell, User2, ChevronUp, BarChart } from "lucide-react"
 
 import {
   Sidebar,
@@ -20,10 +20,15 @@ import { Link } from "@refinedev/core"
 
 // Menu items.
 const items = [
+    {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: Home,
+    },
   {
-    title: "Home", 
+    title: "Blog", 
     url: "/blog-posts",
-    icon: Home,
+    icon: FileText,
   },
   {
     title: "Inbox",

@@ -5,10 +5,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
         <SidebarTrigger />
         {children}
-      </main>
     </SidebarProvider>
   );
 };

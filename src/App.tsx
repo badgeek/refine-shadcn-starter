@@ -30,6 +30,7 @@ import { Register } from "./pages/register";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { authProvider } from "./authProvider";
 import { ThemeProvider } from "@/components/theme-provider"
+import DashboardPage from "./pages/dashboard";
 
 function App() {
   return (
@@ -90,6 +91,9 @@ function App() {
                   <Route path="create" element={<BlogPostCreate />} />
                   <Route path="edit/:id" element={<BlogPostEdit />} />
                   <Route path="show/:id" element={<BlogPostShow />} />
+                </Route>
+                <Route path="/dashboard">
+                  <Route index element={<DashboardPage />} />
                 </Route>
                 <Route path="/categories">
                   <Route index element={<CategoryList />} />

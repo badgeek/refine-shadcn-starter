@@ -3,6 +3,10 @@ help:
 	@echo "Available commands:"
 	@echo "  install-shadcn-all  Install all shadcn components"
 
+PHONY: dev
+dev:
+	pnpm run dev
+
 PHONY: install-shadcn-all
 install-shadcn-all:
 	pnpx shadcn@latest add alert-dialog
@@ -42,3 +46,4 @@ install-shadcn-all:
 	pnpx shadcn@latest add toast
 	pnpx shadcn@latest add toggle
 	pnpx shadcn@latest add tooltip
+	pnpx shadcn@latest add pagination

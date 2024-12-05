@@ -32,7 +32,7 @@ const StatCard = ({ title, value, change, icon: Icon }: StatCardProps) => (
 )
 
 interface ChartButtonProps {
-  chart: keyof typeof chartConfig
+  chart: "desktop" | "mobile"
   isActive: boolean
   onClick: () => void
   label: string
@@ -41,7 +41,6 @@ interface ChartButtonProps {
 
 const ChartButton = ({ chart, isActive, onClick, label, value }: ChartButtonProps) => (
   <button
-    key={chart}
     data-active={isActive}
     className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
     onClick={onClick}
@@ -120,15 +119,15 @@ const OverviewChart = ({
       </div>
       <div className="flex">
         {["desktop", "mobile"].map((key) => {
-          const chart = key as keyof typeof chartConfig
+          const chart = key as "desktop" | "mobile"
           return (
             <ChartButton
               key={chart}
               chart={chart}
               isActive={activeChart === chart}
               onClick={() => setActiveChart(chart)}
-              label={chartConfig[chart].label}
-              value={total[key as keyof typeof total]}
+              label={chartConfig[chart].label as string}
+              value={total[chart]}
             />
           )
         })}
@@ -226,11 +225,11 @@ export default function DashboardPage() {
       label: "Page Views",
     },
     desktop: {
-      label: "Desktop",
+      label: "Desktop" as string,
       color: "hsl(var(--chart-1))",
     },
     mobile: {
-      label: "Mobile", 
+      label: "Mobile" as string,
       color: "hsl(var(--chart-2))",
     },
   } satisfies ChartConfig

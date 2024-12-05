@@ -184,7 +184,7 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
           <Button onClick={() => create("blog_posts")}>Create</Button>
         </div>
       </div>
-      <div style={{ maxWidth: "100%", overflowY: "scroll" }}>
+      <div style={{ maxWidth: "100%" }}>
         <Table>
           <TableHeader>
             {getHeaderGroups().map((headerGroup) => (

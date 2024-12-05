@@ -1,17 +1,38 @@
 import { useNavigation, useSelect } from "@refinedev/core";
 import { useForm } from "@refinedev/react-hook-form";
 import React from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const BlogPostEdit = () => {
   const { list } = useNavigation();
+
+  const form = useForm({});
 
   const {
     refineCore: { onFinish, queryResult },
     register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors },
-  } = useForm({});
+  } = form;
 
   const blogPostsData = queryResult?.data?.data;
 
@@ -25,91 +46,109 @@ export const BlogPostEdit = () => {
   }, [categoryOptions]);
 
   return (
-    <div style={{ padding: "16px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h1>Edit</h1>
-        <div>
-          <button
-            onClick={() => {
-              list("blog_posts");
-            }}
-          >
-            List
-          </button>
-        </div>
+    <div className="max-w-3xl mx-auto p-4">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Edit Post</h1>
+        <Button variant="outline" onClick={() => list("blog_posts")}>
+          List
+        </Button>
       </div>
-      <form onSubmit={handleSubmit(onFinish)}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "8px",
-          }}
-        >
-          <label>
-            <span style={{ marginRight: "8px" }}>Title</span>
-            <input
-              type="text"
-              {...register("title", {
-                required: "This field is required",
-              })}
+
+      <Form {...form}>
+        <form onSubmit={handleSubmit(onFinish)} className="space-y-6">
+          <div className="grid gap-6">
+            <FormField
+              control={control}
+              name="title"
+              rules={{ required: "This field is required" }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title</FormLabel>
+                  <FormControl>
+                    <Input {...register("title", { required: "This field is required" })} />
+                  </FormControl>
+                  <FormMessage>{errors?.title?.message as string}</FormMessage>
+                </FormItem>
+              )}
             />
-            <span style={{ color: "red" }}>
-              {(errors as any)?.title?.message as string}
-            </span>
-          </label>
-          <label>
-            <span style={{ marginRight: "8px" }}>Content</span>
-            <textarea
-              rows={5}
-              cols={33}
-              style={{ verticalAlign: "top" }}
-              {...register("content", {
-                required: "This field is required",
-              })}
+
+            <FormField
+              control={control}
+              name="content"
+              rules={{ required: "This field is required" }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Content</FormLabel>
+                  <FormControl>
+                    <Textarea {...register("content", { required: "This field is required" })} rows={5} />
+                  </FormControl>
+                  <FormMessage>{errors?.content?.message as string}</FormMessage>
+                </FormItem>
+              )}
             />
-            <span style={{ color: "red" }}>
-              {(errors as any)?.content?.message as string}
-            </span>
-          </label>
-          <label>
-            <span style={{ marginRight: "8px" }}>Category</span>
-            <select
-              {...register("category.id", {
-                required: "This field is required",
-              })}
-            >
-              {categoryOptions?.map((option) => (
-                <option value={option.value} key={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            <span style={{ color: "red" }}>
-              {(errors as any)?.category?.id?.message as string}
-            </span>
-          </label>
-          <label>
-            <span style={{ marginRight: "8px" }}>Status</span>
-            <select
-              defaultValue="draft"
-              {...register("status", {
-                required: "This field is required",
-              })}
-            >
-              <option value="draft">Draft</option>
-              <option value="published">Published</option>
-              <option value="rejected">Rejected</option>
-            </select>
-            <span style={{ color: "red" }}>
-              {(errors as any)?.status?.message as string}
-            </span>
-          </label>
-          <div>
-            <input type="submit" value="Save" />
+
+            <FormField
+              control={control}
+              name="category.id"
+              rules={{ required: "This field is required" }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Select 
+                    onValueChange={field.onChange} 
+                    value={field.value}
+                    // {...register("category.id", { required: "This field is required" })}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a category" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categoryOptions?.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage>{(errors as any)?.category?.id?.message as string}</FormMessage>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="status"
+              rules={{ required: "This field is required" }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Status</FormLabel>
+                  <Select 
+                    onValueChange={field.onChange}
+                    defaultValue="draft"
+                    // {...register("status", { required: "This field is required" })}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a status" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="draft">Draft</SelectItem>
+                      <SelectItem value="published">Published</SelectItem>
+                      <SelectItem value="rejected">Rejected</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage>{errors?.status?.message as string}</FormMessage>
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit">Save</Button>
           </div>
-        </div>
-      </form>
+        </form>
+      </Form>
     </div>
   );
 };

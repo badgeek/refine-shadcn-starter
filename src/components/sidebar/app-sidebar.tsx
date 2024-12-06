@@ -181,10 +181,26 @@ function UserDropdown() {
   )
 }
 
+function SidebarBranding() {
+  return (
+    <div className="flex items-center gap-3 px-2 py-4">
+      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary">
+        <span className="text-lg font-bold text-primary-foreground">A</span>
+      </div>
+      <div className="flex flex-col">
+        <span className="text-xl font-bold tracking-tight">Acme Inc.</span>
+        <span className="text-xs text-muted-foreground">Admin Dashboard</span>
+      </div>
+    </div>
+  )
+}
+
 export function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader />
+      <SidebarHeader>
+        <SidebarBranding />
+      </SidebarHeader>
       <SidebarContent>
         <CollapsibleMenuSection title="Help" items={items} />
         <CollapsibleMenuSection title="Team" items={teamItems} />

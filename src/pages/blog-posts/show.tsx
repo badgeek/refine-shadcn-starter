@@ -1,15 +1,17 @@
-import { useNavigation, useOne, useResource, useShow } from "@refinedev/core";
-import React from "react";
+import { useParams } from "react-router-dom";
+import { useNavigation, useOne } from "@refinedev/core";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
 export const BlogPostShow = () => {
   const { edit, list } = useNavigation();
-  const { id } = useResource();
-  const { queryResult } = useShow({});
-  const { data } = queryResult;
+  const { id } = useParams();
+  const { data } = useOne({
+    resource: "blog_posts",
+    id: id || "",
+  });
 
   const record = data?.data;
 

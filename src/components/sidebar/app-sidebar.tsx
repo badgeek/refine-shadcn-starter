@@ -16,7 +16,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useTheme } from "@/components/theme-provider"
 import { Sun, Moon } from "lucide-react"
-import { Link } from "@refinedev/core"
+import { Link, useLogout } from "@refinedev/core"
 
 // Menu items.
 const items = [
@@ -127,6 +127,7 @@ function CollapsibleMenuSection({ title, items }: { title: string, items: MenuIt
 }
 function UserDropdown() {
   const { theme, setTheme } = useTheme()
+  const { mutate: logout } = useLogout();
 
   return (
     <SidebarMenu>
@@ -150,7 +151,9 @@ function UserDropdown() {
               <FileText className="h-4 w-4 mr-2" />
               <span>Billing</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => logout()}
+            >
               <Settings className="h-4 w-4 mr-2" />
               <span>Sign out</span>
             </DropdownMenuItem>

@@ -244,8 +244,11 @@ export default function DashboardPage() {
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6 w-full">
-      <div className="flex items-center justify-between space-y-2 w-full">
-        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+      <div className="space-y-0.5">
+        <h2 className="text-2xl font-bold tracking-tight">Dashboard</h2>
+        <p className="text-muted-foreground">
+          Overview of your website and analytics.
+        </p>
       </div>
       <StatCards />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 w-full">

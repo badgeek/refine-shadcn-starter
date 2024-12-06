@@ -31,6 +31,7 @@ import { ForgotPassword } from "./pages/forgotPassword";
 import { authProvider } from "./authProvider";
 import { ThemeProvider } from "@/components/theme-provider"
 import DashboardPage from "./pages/dashboard";
+import SettingsPage from "./pages/settings";
 
 function App() {
   return (
@@ -94,6 +95,9 @@ function App() {
                 </Route>
                 <Route path="/dashboard">
                   <Route index element={<DashboardPage />} />
+                </Route>
+                <Route path="/settings">
+                  <Route index element={<SettingsPage />} />
                 </Route>
                 <Route path="/categories">
                   <Route index element={<CategoryList />} />

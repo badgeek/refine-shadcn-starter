@@ -71,7 +71,7 @@ export default function OrderPage() {
             <Printer className="mr-2 h-4 w-4" />
             Print
           </Button>
-          <Button size="sm">
+          <Button disabled size="sm">
             <Pencil className="mr-2 h-4 w-4" />
             Edit
           </Button>

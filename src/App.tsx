@@ -32,6 +32,8 @@ import { authProvider } from "./authProvider";
 import { ThemeProvider } from "@/components/theme-provider"
 import DashboardPage from "./pages/dashboard";
 import SettingsPage from "./pages/settings";
+import ProfilePage from "./pages/profile";
+import OrderPage from "./pages/order";
 
 function App() {
   return (
@@ -49,6 +51,14 @@ function App() {
               {
                 name: "settings",
                 list: "/settings",
+              },
+              {
+                name: "profile",
+                list: "/profile",
+              },
+              {
+                name: "orders",
+                list: "/orders",
               },
               {
                 name: "blog_posts",
@@ -105,6 +115,12 @@ function App() {
                   <Route index handle={{
                     breadcrumb: "Dashboard",
                   }} element={<DashboardPage />} />
+                </Route>
+                <Route path="/profile">
+                  <Route index element={<ProfilePage />} />
+                </Route>
+                <Route path="/orders">
+                  <Route index element={<OrderPage />} />
                 </Route>
                 <Route path="/settings">
                   <Route index element={<SettingsPage />} />

@@ -43,6 +43,14 @@ function App() {
             authProvider={authProvider}
             resources={[
               {
+                name: "dashboard",
+                list: "/dashboard",
+              },
+              {
+                name: "settings",
+                list: "/settings",
+              },
+              {
                 name: "blog_posts",
                 list: "/blog-posts",
                 create: "/blog-posts/create",
@@ -94,7 +102,9 @@ function App() {
                   <Route path="show/:id" element={<BlogPostShow />} />
                 </Route>
                 <Route path="/dashboard">
-                  <Route index element={<DashboardPage />} />
+                  <Route index handle={{
+                    breadcrumb: "Dashboard",
+                  }} element={<DashboardPage />} />
                 </Route>
                 <Route path="/settings">
                   <Route index element={<SettingsPage />} />

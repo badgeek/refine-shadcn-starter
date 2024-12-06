@@ -49,4 +49,4 @@ install-shadcn-all:
 	pnpm dlx shadcn@latest add pagination
 	pnpm dlx shadcn@latest add sidebar
 	pnpm dlx shadcn@latest add chart
-
+	pnpm dlx shadcn@latest add breadcrumb

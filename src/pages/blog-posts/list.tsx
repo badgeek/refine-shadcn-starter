@@ -175,18 +175,9 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
   }));
 
   return (
-    <div className="p-2">
-      <div className="mx-2 my-2 flex items-center justify-between">
-        <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">
-          Blog Posts
-        </h1>
-        <div className="p-2">
-          <Button onClick={() => create("blog_posts")}>Create</Button>
-        </div>
-      </div>
-      <div style={{ maxWidth: "100%" }}>
-        <Table>
-          <TableHeader>
+    <div>
+      <Table>
+        <TableHeader>
             {getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -212,8 +203,7 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
-      </div>
+      </Table>
       <Pagination>
         <PaginationContent>
           <PaginationItem>

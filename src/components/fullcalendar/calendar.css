@@ -1,0 +1,51 @@
+/* Calendar container styles */
+.fc {
+    @apply rounded-lg bg-background dark:bg-gray-950 shadow-sm !important;
+  }
+  
+  /* Header styling */
+  .fc-col-header-cell {
+    @apply bg-muted/50 dark:bg-gray-900 !important;
+  }
+  
+  .fc-col-header-cell-cushion {
+    @apply flex h-12 items-center justify-center font-medium text-foreground/80 !important;
+  }
+  
+  /* Day cell styling */
+  td.fc-daygrid-day.fc-day {
+    @apply hover:bg-muted/50 transition-colors duration-200 !important;
+  }
+  
+  .fc-daygrid-day-number {
+    @apply p-2 text-sm text-foreground/80 !important;
+  }
+  
+  /* Today's cell styling */
+  .fc-day-today {
+    @apply bg-primary/5 dark:bg-primary/10 !important;
+  }
+  
+  /* Other month's days */
+  .fc-day-other {
+    @apply bg-muted/30 dark:bg-gray-900/50 !important;
+  }
+  
+  /* Border styling */
+  .fc-theme-standard td,
+  .fc-theme-standard th {
+    @apply border-muted dark:border-gray-800 !important;
+  }
+  
+  .fc-scrollgrid {
+    @apply border-muted dark:border-gray-800 !important;
+  }
+  
+  /* Event styling */
+  .fc-daygrid-event {
+    @apply mx-1 my-0.5 rounded border-none bg-primary/80 text-primary-foreground shadow-sm hover:bg-primary !important;
+  }
+  
+  .fc-event-main {
+    @apply px-2 py-1 text-xs !important;
+  }

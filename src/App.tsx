@@ -34,6 +34,7 @@ import DashboardPage from "./pages/dashboard";
 import SettingsPage from "./pages/settings";
 import ProfilePage from "./pages/profile";
 import OrderPage from "./pages/order";
+import CalendarPage from "./pages/calendar";
 
 function App() {
   return (
@@ -51,6 +52,10 @@ function App() {
               {
                 name: "settings",
                 list: "/settings",
+              },
+              {
+                name: "calendar",
+                list: "/calendar",
               },
               {
                 name: "profile",
@@ -115,6 +120,9 @@ function App() {
                   <Route index handle={{
                     breadcrumb: "Dashboard",
                   }} element={<DashboardPage />} />
+                </Route>
+                <Route path="/calendar">
+                  <Route index element={<CalendarPage />} />
                 </Route>
                 <Route path="/profile">
                   <Route index element={<ProfilePage />} />

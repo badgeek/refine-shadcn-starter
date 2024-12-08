@@ -5,6 +5,7 @@ import "./calendar.css";
 import { CalendarHeader } from './header';
 import { useState, useRef } from 'react';
 import { render } from '@fullcalendar/core/preact';
+import { memoize } from '@fullcalendar/core/internal';
 
 const events = [
   { title: 'Team Meeting', start: '2024-11-02T10:00:00', end: '2024-11-02T11:30:00' },
@@ -22,20 +23,18 @@ const events = [
 ]
 
 let rendernum = 0
-
 function CustomShadMonthlyView(props: any) {
-  // const xxx = useRef<number>();
   rendernum++;
 
-  console.log(rendernum);
-  // console.log(props);
+  console.log(props);
   const { currentDate, totalDays, firstDayOffset, totalCells, today } = calculateDateInfo(props.dateProfile);
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const eventsByDate = processEvents(props.eventStore);
+  const eventsByDate = memoizedProcessEvents(props.eventStore);
 
   const renderDayCell = (index: number) => {
     const { dayNumber, isCurrentMonth, date, dateStr } = getDayCellInfo(index, firstDayOffset, totalDays, currentDate);
     const dayEvents = eventsByDate.get(dateStr) || [];
+    const displayDayNumber = isCurrentMonth ? dayNumber : new Date(date).getDate();
 
     return (
       <div key={index} className={`flex flex-col gap-1 py-1.5 lg:py-2 
@@ -43,7 +42,7 @@ function CustomShadMonthlyView(props: any) {
     ${index >= 7 ? 'border-t' : ''}
     ${!isCurrentMonth ? 'bg-muted/30 dark:bg-gray-900/50' : ''}
     ${dateStr === today ? 'bg-primary/5 dark:bg-primary/10' : ''}`}>
-        <span className={`h-6 px-1 text-xs font-semibold lg:px-2 ${!isCurrentMonth ? 'opacity-50' : ''}`}>{isCurrentMonth ? dayNumber : ''}</span>
+        <span className={`h-6 px-1 text-xs font-semibold lg:px-2 ${!isCurrentMonth ? 'opacity-50' : ''}`}>{displayDayNumber}</span>
         <div className={`flex h-6 gap-1 px-2 lg:h-[94px] lg:flex-col lg:gap-2 lg:px-0 ${!isCurrentMonth ? 'opacity-50' : ''}`}>
           {renderEvents(dayEvents)}
         </div>
@@ -77,8 +76,9 @@ function calculateDateInfo(dateProfile: any) {
   const totalDays = lastDayOfMonth.getDate();
   const firstDayOffset = firstDayOfMonth.getDay();
   const totalCells = Math.ceil((totalDays + firstDayOffset) / 7) * 7;
+  const today = new Date().toDateString();
 
-  return { currentDate, firstDayOfMonth, lastDayOfMonth, totalDays, firstDayOffset, totalCells, activeStart, activeEnd };
+  return { currentDate, firstDayOfMonth, lastDayOfMonth, totalDays, firstDayOffset, totalCells, activeStart, activeEnd, today };
 }
 
 function processEvents(eventStore: any) {
@@ -147,8 +147,7 @@ function renderEvents(dayEvents: any[]) {
 }
 
 function renderEventContent(seg: any) {
-  if (seg.isStart || seg.daysBetween === 1) {
-    return (
+  if (seg.isStart || seg.daysBetween === 1) {    return (
       <p className="flex-1 truncate font-semibold">
         {seg.title}
         <span>{seg.isStart && seg.daysBetween > 1 && ` (${seg.daysBetween} days)`}</span>
@@ -164,8 +163,7 @@ function renderEventContent(seg: any) {
 }
 
 function renderMoreEventsIndicator(dayEvents: any[]) {
-  if (dayEvents.length > 3) {
-    return (
+  if (dayEvents.length > 3) {    return (
       <p className="h-4.5 px-1.5 text-xs font-semibold text-t-quaternary">
         <span className="sm:hidden">+{dayEvents.length - 3}</span>
         <span className="hidden sm:inline">{dayEvents.length - 3} more...</span>
@@ -227,7 +225,7 @@ export function ShadFullCalendar() {
 
   return (
     <div>
-      {renderNum.current}
+      {/* {renderNum.current} */}
       <CalendarHeader
         currentMonth={currentMonth}
         eventCount={events.length}
@@ -269,3 +267,32 @@ export function ShadFullCalendar() {
     </div>
   );
 }
+
+
+const memoizedProcessEvents = memoize(
+  processEvents,
+  (res0, res1) => {
+    if (res0 === res1) return true;
+    if (!(res0 instanceof Map) || !(res1 instanceof Map)) return false;
+    if (res0.size !== res1.size) return false;
+    
+    for (const [key, value] of res0) {
+      const otherValue = res1.get(key);
+      if (!otherValue || value.length !== otherValue.length) return false;
+      // Compare events in the array
+      for (let i = 0; i < value.length; i++) {
+        if (value[i].start !== otherValue[i].start || 
+            value[i].end !== otherValue[i].end ||
+            value[i].daysBetween !== otherValue[i].daysBetween) {
+          return false;
+        }
+      }
+    }
+    return true;
+  },
+  (result) => {
+    if (result instanceof Map) {
+      result.clear();
+    }
+  }
+);

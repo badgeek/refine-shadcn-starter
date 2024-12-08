@@ -1,10 +1,13 @@
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import "./calendar.css";
 import { createPlugin } from '@fullcalendar/core';
-import { useMemo, memo, useCallback } from 'react';
+import "./calendar.css";
+import { CalendarHeader } from './header';
+import { useState, useRef } from 'react';
+import { render } from '@fullcalendar/core/preact';
 
 const events = [
+  { title: 'Team Meeting', start: '2024-11-02T10:00:00', end: '2024-11-02T11:30:00' },
   { title: 'Team Meeting', start: '2024-12-02T10:00:00', end: '2024-12-02T11:30:00' },
   { title: 'Project Review', start: '2024-12-05T14:00:00', end: '2024-12-05T15:00:00' },
   { title: 'Client Presentation', start: '2024-12-09T09:00:00', end: '2024-12-09T10:30:00' },
@@ -18,236 +21,33 @@ const events = [
   { title: 'Weekly Wrap-up xxx', start: '2024-12-06T16:00:00', end: '2024-12-12T16:30:00' }
 ]
 
-// Add new custom event component
-function CustomEventComponent({ eventInfo }: { eventInfo: any }) {
-  return (
-    <div className="custom-event-container">
-      <div className="event-time">{eventInfo.timeText}</div>
-      <div className="event-title">{eventInfo.event.title}</div>
-    </div>
-  );
-}
+let rendernum = 0
 
-function DayRender({ info }: { info: any }) {
-  return (
-    <div className="h-6 px-1 text-xs font-semibold lg:px-2">
-      {info.dayNumberText}
-    </div>
-  );
-}
+function CustomShadMonthlyView(props: any) {
+  // const xxx = useRef<number>();
+  rendernum++;
 
-function EventItem({ info }: { info: any }) {
-  return (
-    <div className="flex items-center gap-1">
-      <span className="font-medium">{info.timeText}</span>
-      <span>{info.event.title}</span>
-    </div>
-  );
-}
-
-function DayHeader({ info }: { info: any }) {
-  return (
-    <div className="font-medium text-foreground/80">
-      {info.text}
-    </div>
-  );
-}
-
-const DayCell = memo(({ 
-  index, 
-  dayOffset, 
-  dayNumber, 
-  isCurrentMonth, 
-  date, 
-  dayEvents 
-}: { 
-  index: number;
-  dayOffset: number;
-  dayNumber: number;
-  isCurrentMonth: boolean;
-  date: Date;
-  dayEvents: any[];
-}) => {
-  return (
-    <div>
-      <div className={`flex flex-col gap-1 py-1.5 lg:py-2 
-        ${index % 7 !== 0 ? 'border-l' : ''} 
-        ${index >= 7 ? 'border-t' : ''}
-        ${!isCurrentMonth ? 'bg-muted/30 dark:bg-gray-900/50' : ''}
-        ${date.toDateString() === new Date().toDateString() ? 'bg-primary/5 dark:bg-primary/10' : ''}
-      `}>
-        <span className={`h-6 px-1 text-xs font-semibold lg:px-2 
-          ${!isCurrentMonth ? 'opacity-50' : ''}`}>
-          {isCurrentMonth ? dayNumber : ''}
-        </span>
-        <div className={`flex h-6 gap-1 px-2 lg:h-[94px] lg:flex-col lg:gap-2 lg:px-0 
-          ${!isCurrentMonth ? 'opacity-50' : ''}`}>
-          <div className="lg:flex-1">
-            {dayEvents.map((seg: any, i: number) => (
-              <div 
-                key={i} 
-                role="button" 
-                tabIndex={0} 
-                className={`mx-1 mb-1 select-none items-center justify-between gap-1.5 truncate whitespace-nowrap rounded-md border px-2 py-1 text-xs border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300 hidden lg:flex hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors min-h-[28px]
-                  ${!seg.isStart ? 'rounded-l-none border-l-0 ml-0' : ''}
-                  ${!seg.isEnd ? 'rounded-r-none border-r-0 mr-0' : ''}
-                  ${seg.daysBetween > 1 && !seg.isStart ? 'px-0' : ''}
-                `}
-                style={{
-                  position: 'relative',
-                  zIndex: seg.daysBetween > 1 ? 1 : 0
-                }}
-              >
-                {(seg.isStart || seg.daysBetween === 1) ? (
-                  <p className="flex-1 truncate font-semibold">
-                    {seg.title}
-                    {seg.isStart && seg.daysBetween > 1 && ` (${seg.daysBetween} days)`}
-                  </p>
-                ) : (
-                  <p className="flex-1 truncate font-semibold opacity-0" aria-hidden="true">
-                    {seg.title}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-});
-
-DayCell.displayName = 'DayCell';
-
-function CustomView(props: any) {
-  // Pre-calculate all date-related values
-  const currentDate = props.dateProfile.currentDate;
-  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-  const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-  const totalDays = lastDayOfMonth.getDate();
-  const firstDayOffset = firstDayOfMonth.getDay();
-  const totalCells = Math.ceil((totalDays + firstDayOffset) / 7) * 7;
-  const today = new Date().toDateString();
+  console.log(rendernum);
+  // console.log(props);
+  const { currentDate, totalDays, firstDayOffset, totalCells, today } = calculateDateInfo(props.dateProfile);
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const eventsByDate = processEvents(props.eventStore);
 
-  // Process events once and create an optimized lookup map
-  const eventsByDate = new Map();
-  const processEvents = () => {
-    if (!props.eventStore.instances) return eventsByDate;
-
-    // Pre-calculate event definitions map for faster lookup
-    const eventDefs = new Map(
-      Object.entries(props.eventStore.defs)
-    );
-
-    Object.entries(props.eventStore.instances).forEach(([id, instance]: any) => {
-      const eventDef = eventDefs.get(instance.defId);
-      if (!eventDef) return;
-
-      const startDate = new Date(instance.range.start);
-      const endDate = new Date(instance.range.end);
-      const daysBetween = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-      
-      // Pre-calculate the base event object
-      const baseEvent = {
-        ...eventDef,
-        start: instance.range.start,
-        end: instance.range.end,
-        daysBetween
-      };
-
-      // Optimize date iteration
-      const startTime = startDate.getTime();
-      const dayInMs = 24 * 60 * 60 * 1000;
-      
-      for (let i = 0; i < daysBetween; i++) {
-        const currentDate = new Date(startTime + (i * dayInMs));
-        const dateKey = currentDate.toDateString();
-        
-        if (!eventsByDate.has(dateKey)) {
-          eventsByDate.set(dateKey, []);
-        }
-
-        eventsByDate.get(dateKey).push({
-          ...baseEvent,
-          isStart: i === 0,
-          isEnd: i === daysBetween - 1
-        });
-      }
-    });
-
-    // Sort events once per date
-    eventsByDate.forEach(events => {
-      events.sort((a: any, b: any) => {
-        // Prioritize multi-day events
-        if (a.daysBetween !== b.daysBetween) {
-          return b.daysBetween - a.daysBetween;
-        }
-        // Then sort by start time
-        return new Date(a.start).getTime() - new Date(b.start).getTime();
-      });
-    });
-
-    return eventsByDate;
-  };
-
-  // Process events once
-  processEvents();
-
-  // Render functions
   const renderDayCell = (index: number) => {
-    const dayOffset = index - firstDayOffset;
-    const dayNumber = dayOffset + 1;
-    const isCurrentMonth = dayOffset >= 0 && dayOffset < totalDays;
-    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), dayNumber);
-    const dateStr = date.toDateString();
+    const { dayNumber, isCurrentMonth, date, dateStr } = getDayCellInfo(index, firstDayOffset, totalDays, currentDate);
     const dayEvents = eventsByDate.get(dateStr) || [];
 
     return (
-      <div key={index}>
-        <div className={`flex flex-col gap-1 py-1.5 lg:py-2 
-          ${index % 7 !== 0 ? 'border-l' : ''} 
-          ${index >= 7 ? 'border-t' : ''}
-          ${!isCurrentMonth ? 'bg-muted/30 dark:bg-gray-900/50' : ''}
-          ${dateStr === today ? 'bg-primary/5 dark:bg-primary/10' : ''}
-        `}>
-          <span className={`h-6 px-1 text-xs font-semibold lg:px-2 
-            ${!isCurrentMonth ? 'opacity-50' : ''}`}>
-            {isCurrentMonth ? dayNumber : ''}
-          </span>
-          <div className={`flex h-6 gap-1 px-2 lg:h-[94px] lg:flex-col lg:gap-2 lg:px-0 
-            ${!isCurrentMonth ? 'opacity-50' : ''}`}>
-            <div className="lg:flex-1">
-              {dayEvents.map((seg: any, i: number) => (
-                <div 
-                  key={i} 
-                  role="button" 
-                  tabIndex={0} 
-                  className={`mx-1 mb-1 select-none items-center justify-between gap-1.5 truncate whitespace-nowrap rounded-md border px-2 py-1 text-xs border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300 hidden lg:flex hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors min-h-[28px]
-                    ${!seg.isStart ? 'rounded-l-none border-l-0 ml-0' : ''}
-                    ${!seg.isEnd ? 'rounded-r-none border-r-0 mr-0' : ''}
-                    ${seg.daysBetween > 1 && !seg.isStart ? 'px-0' : ''}
-                  `}
-                  style={{
-                    position: 'relative',
-                    zIndex: seg.daysBetween > 1 ? 1 : 0
-                  }}
-                >
-                  {(seg.isStart || seg.daysBetween === 1) ? (
-                    <p className="flex-1 truncate font-semibold">
-                      {seg.title}
-                      {seg.isStart && seg.daysBetween > 1 && ` (${seg.daysBetween} days)`}
-                    </p>
-                  ) : (
-                    <p className="flex-1 truncate font-semibold opacity-0" aria-hidden="true">
-                      {seg.title}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+      <div key={index} className={`flex flex-col gap-1 py-1.5 lg:py-2 
+    ${index % 7 !== 0 ? 'border-l' : ''} 
+    ${index >= 7 ? 'border-t' : ''}
+    ${!isCurrentMonth ? 'bg-muted/30 dark:bg-gray-900/50' : ''}
+    ${dateStr === today ? 'bg-primary/5 dark:bg-primary/10' : ''}`}>
+        <span className={`h-6 px-1 text-xs font-semibold lg:px-2 ${!isCurrentMonth ? 'opacity-50' : ''}`}>{isCurrentMonth ? dayNumber : ''}</span>
+        <div className={`flex h-6 gap-1 px-2 lg:h-[94px] lg:flex-col lg:gap-2 lg:px-0 ${!isCurrentMonth ? 'opacity-50' : ''}`}>
+          {renderEvents(dayEvents)}
         </div>
+        {renderMoreEventsIndicator(dayEvents)}
       </div>
     );
   };
@@ -261,7 +61,6 @@ function CustomView(props: any) {
           </div>
         ))}
       </div>
-
       <div className="grid grid-cols-7 overflow-hidden border-b lg:border-b-0">
         {Array.from({ length: totalCells }).map((_, index) => renderDayCell(index))}
       </div>
@@ -269,33 +68,183 @@ function CustomView(props: any) {
   );
 }
 
-export default CustomView;
+function calculateDateInfo(dateProfile: any) {
+  const activeStart = dateProfile.activeRange.start;
+  const activeEnd = dateProfile.activeRange.end;
+  const currentDate = new Date(activeStart);
+  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+  const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+  const totalDays = lastDayOfMonth.getDate();
+  const firstDayOffset = firstDayOfMonth.getDay();
+  const totalCells = Math.ceil((totalDays + firstDayOffset) / 7) * 7;
 
-const CustomViewPlugin = createPlugin({
-  name: 'customView',
-  initialView: 'resourceTimeline',
-  views: {
-    custom: CustomView,
-    resourceTimelineDay: {
-      type: 'resourceTimeline',
-      duration: { month: 1 },
+  return { currentDate, firstDayOfMonth, lastDayOfMonth, totalDays, firstDayOffset, totalCells, activeStart, activeEnd };
+}
+
+function processEvents(eventStore: any) {
+  const eventsByDate = new Map();
+  if (!eventStore.instances) return eventsByDate;
+
+  const eventDefs = new Map(Object.entries(eventStore.defs));
+
+  Object.entries(eventStore.instances).forEach(([, instance]: any) => {
+    const eventDef = eventDefs.get(instance.defId);
+    if (!eventDef) return;
+
+    const { start, end } = instance.range;
+    const daysBetween = Math.ceil((new Date(end).getTime() - new Date(start).getTime()) / (1000 * 60 * 60 * 24));
+    const baseEvent = { ...eventDef, start, end, daysBetween };
+
+    for (let i = 0; i < daysBetween; i++) {
+      const currentDate = new Date(new Date(start).getTime() + (i * 24 * 60 * 60 * 1000));
+      const dateKey = currentDate.toDateString();
+      
+      if (!eventsByDate.has(dateKey)) {
+        eventsByDate.set(dateKey, []);
+      }
+
+      eventsByDate.get(dateKey).push({
+        ...baseEvent,
+        isStart: i === 0,
+        isEnd: i === daysBetween - 1
+      });
     }
+  });
+
+  eventsByDate.forEach(events => {
+    events.sort((a: any, b: any) => b.daysBetween - a.daysBetween || new Date(a.start).getTime() - new Date(b.start).getTime());
+  });
+
+  return eventsByDate;
+}
+
+function getDayCellInfo(index: number, firstDayOffset: number, totalDays: number, currentDate: Date) {
+  const dayOffset = index - firstDayOffset;
+  const dayNumber = dayOffset + 1;
+  const isCurrentMonth = dayOffset >= 0 && dayOffset < totalDays;
+  const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), dayNumber);
+  const dateStr = date.toDateString();
+
+  return { dayNumber, isCurrentMonth, date, dateStr };
+}
+
+function renderEvents(dayEvents: any[]) {
+  return dayEvents.slice(0, 3).map((seg: any, i: number) => (
+    <div key={i} className="lg:flex-1">
+      <div 
+        role="button" 
+        tabIndex={0} 
+        className={ `mx-1 size-auto h-6 select-none items-center justify-between gap-1.5 truncate whitespace-nowrap rounded-md border px-2 text-xs border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-950 dark:text-green-300 hidden lg:flex
+          ${!seg.isStart ? 'rounded-l-none border-l-0 ml-0' : ''}
+          ${!seg.isEnd ? 'rounded-r-none border-r-0 mr-0' : ''}
+          ${seg.daysBetween > 1 && !seg.isStart ? 'px-0' : ''}`}
+        style={{ position: 'relative', zIndex: seg.daysBetween > 1 ? 1 : 0 }}
+      >
+        {renderEventContent(seg)}
+      </div>
+    </div>
+  ));
+}
+
+function renderEventContent(seg: any) {
+  if (seg.isStart || seg.daysBetween === 1) {
+    return (
+      <p className="flex-1 truncate font-semibold">
+        {seg.title}
+        <span>{seg.isStart && seg.daysBetween > 1 && ` (${seg.daysBetween} days)`}</span>
+      </p>
+    );
+  } else {
+    return (
+      <p className="flex-1 truncate font-semibold opacity-0" aria-hidden="true">
+        {seg.title}
+      </p>
+    );
+  }
+}
+
+function renderMoreEventsIndicator(dayEvents: any[]) {
+  if (dayEvents.length > 3) {
+    return (
+      <p className="h-4.5 px-1.5 text-xs font-semibold text-t-quaternary">
+        <span className="sm:hidden">+{dayEvents.length - 3}</span>
+        <span className="hidden sm:inline">{dayEvents.length - 3} more...</span>
+      </p>
+    );
+  }
+  return null;
+}
+const CustomShadMonthlyPlugin = createPlugin({
+  name: 'shadmonthly',
+  initialView: 'shadmonthly',
+  views: {
+    shadmonthly: {
+      component: CustomShadMonthlyView,
+      duration: { months: 1 },
+      monthMode: true,
+      type: "month",
+    },
   },
 });
+export function ShadFullCalendar() {
+  // const [currentDate, setCurrentDate] = useState(new Date());
+  // const [currentView, setCurrentView] = useState<'day' | 'week' | 'month'>('month');
+  const calendarRef = useRef<FullCalendar>(null);
 
-export function DemoApp() {
+  const renderNum = useRef(0);
+
+  renderNum.current = renderNum.current + 1;
+
+  const handlePrevMonth = () => {
+    if (calendarRef.current) {
+      const calendarApi = calendarRef.current.getApi();
+      calendarApi.prev();
+      // setCurrentDate(calendarApi.getDate());
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (calendarRef.current) {
+      // console.log(calendarRef.current);
+      const calendarApi = calendarRef.current.getApi();
+      calendarApi.next();
+      // setCurrentDate(calendarApi.getDate());
+    }
+  };
+
+  const handleViewChange = (view: 'day' | 'week' | 'month') => {
+    // setCurrentView(view);
+    if (calendarRef.current) {
+      const calendarApi = calendarRef.current.getApi();
+      calendarApi.changeView(view);
+    }
+  };
+  const today = new Date();
+  const currentMonth = today.toLocaleString('default', { month: 'long', year: 'numeric' });
+  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+  const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  const dateRange = `${firstDay.getFullYear()}-${String(firstDay.getMonth() + 1).padStart(2, '0')}-01,${lastDay.getFullYear()}-${String(lastDay.getMonth() + 1).padStart(2, '0')}-${lastDay.getDate()}`;
+
   return (
     <div>
+      {renderNum.current}
+      <CalendarHeader
+        currentMonth={currentMonth}
+        eventCount={events.length}
+        onPrevMonth={handlePrevMonth}
+        onNextMonth={handleNextMonth}
+        onViewChange={handleViewChange}
+        // currentView={currentView}
+        dateRange={dateRange}
+        currentDay={new Date().getDate()}
+      />
       <FullCalendar
-        plugins={[dayGridPlugin, CustomViewPlugin]}
-        initialView='custom'
+        ref={calendarRef}
+        plugins={[dayGridPlugin, CustomShadMonthlyPlugin]}
+        initialView={"shadmonthly"}
         weekends={false}
         headerToolbar={false}
         events={events}
-
-        dayCellContent={(dayInfo) => <DayRender info={dayInfo} />}
-        eventContent={(eventInfo) => <EventItem info={eventInfo} />}
-        dayHeaderContent={(headerInfo) => <DayHeader info={headerInfo} />}
         firstDay={1}
         height={"32vh"}
         displayEventEnd={true}
@@ -315,16 +264,8 @@ export function DemoApp() {
         expandRows={true}
         nowIndicator
         selectable
+        // datesSet={(dateInfo) => setCurrentDate(dateInfo.start)}
       />
     </div>
-  )
-}
-
-function renderEventContent(eventInfo: any) {
-  return (
-    <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-    </>
-  )
+  );
 }

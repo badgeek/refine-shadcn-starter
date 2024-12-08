@@ -30,21 +30,21 @@ const items = [
     url: "/blog-posts",
     icon: FileText,
   },
-  {
-    title: "Inbox",
-    url: "#", 
-    icon: Inbox,
-  },
+  // {
+  //   title: "Inbox",
+  //   url: "#", 
+  //   icon: Inbox,
+  // },
   {
     title: "Calendar",
     url: "/calendar",
     icon: Calendar,
   },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
+  // {
+  //   title: "Search",
+  //   url: "#",
+  //   icon: Search,
+  // },
   {
     title: "Settings",
     url: "/settings",

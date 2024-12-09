@@ -24,9 +24,6 @@ const events = [
 
 let rendernum = 0
 function CustomShadMonthlyView(props: any) {
-  rendernum++;
-
-  console.log(props);
   const { currentDate, totalDays, firstDayOffset, totalCells, today } = calculateDateInfo(props.dateProfile);
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const eventsByDate = memoizedProcessEvents(props.eventStore);
@@ -37,13 +34,18 @@ function CustomShadMonthlyView(props: any) {
     const displayDayNumber = isCurrentMonth ? dayNumber : new Date(date).getDate();
 
     return (
-      <div key={index} className={`flex flex-col gap-1 py-1.5 lg:py-2 
-    ${index % 7 !== 0 ? 'border-l' : ''} 
-    ${index >= 7 ? 'border-t' : ''}
-    ${!isCurrentMonth ? 'bg-muted/30 dark:bg-gray-900/50' : ''}
-    ${dateStr === today ? 'bg-primary/5 dark:bg-primary/10' : ''}`}>
-        <span className={`h-6 px-1 text-xs font-semibold lg:px-2 ${!isCurrentMonth ? 'opacity-50' : ''}`}>{displayDayNumber}</span>
-        <div className={`flex h-6 gap-1 px-2 lg:h-[94px] lg:flex-col lg:gap-2 lg:px-0 ${!isCurrentMonth ? 'opacity-50' : ''}`}>
+      <div
+        key={index}
+        className={`flex-grow overflow-hidden p-1 sm:p-2 h-[80px] sm:h-[150px] border rounded relative group flex flex-col
+          ${index % 7 !== 0 ? 'border-l' : ''} 
+          ${index >= 7 ? 'border-t' : ''}
+          ${!isCurrentMonth ? 'bg-muted/30 dark:bg-gray-900/50' : ''}
+          ${dateStr === today ? 'bg-primary/5 dark:bg-primary/10' : ''}`}
+      >
+        <div className={`font-semibold mb-1 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-xs sm:text-sm ${!isCurrentMonth ? 'opacity-50' : ''}`}>
+          {displayDayNumber}
+        </div>
+        <div className={`flex gap-1 px-1 lg:h-[94px] lg:flex-col  lg:px-0 ${!isCurrentMonth ? 'opacity-50' : ''}`}>
           {renderEvents(dayEvents)}
         </div>
         {renderMoreEventsIndicator(dayEvents)}
@@ -52,18 +54,20 @@ function CustomShadMonthlyView(props: any) {
   };
 
   return (
-    <>
-      <div className="grid grid-cols-7 divide-x border-b">
+    <div className='rounded-lg border bg-card text-card-foreground shadow-sm p-2 sm:p-4'> 
+    <div style={{minWidth: '100%', display: 'table'}}>
+    <div className='grid grid-cols-7 gap-1 sm:gap-2'>
         {weekDays.map((day, index) => (
-          <div key={index} className="flex items-center justify-center py-2">
-            <span className="text-xs font-medium text-t-quaternary">{day}</span>
+          <div key={index} className="text-center font-medium text-xs sm:text-sm">
+            {day}
           </div>
         ))}
-      </div>
-      <div className="grid grid-cols-7 overflow-hidden border-b lg:border-b-0">
+      {/* <div className="flex-grow overflow-hidden"> */}
         {Array.from({ length: totalCells }).map((_, index) => renderDayCell(index))}
-      </div>
-    </>
+      {/* </div> */}
+    </div>
+    </div>
+    </div>
   );
 }
 
@@ -127,20 +131,20 @@ function getDayCellInfo(index: number, firstDayOffset: number, totalDays: number
 
   return { dayNumber, isCurrentMonth, date, dateStr };
 }
-
 function renderEvents(dayEvents: any[]) {
   return dayEvents.slice(0, 3).map((seg: any, i: number) => (
-    <div key={i} className="lg:flex-1">
-      <div 
-        role="button" 
-        tabIndex={0} 
-        className={ `mx-1 size-auto h-6 select-none items-center justify-between gap-1.5 truncate whitespace-nowrap rounded-md border px-2 text-xs border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-950 dark:text-green-300 hidden lg:flex
-          ${!seg.isStart ? 'rounded-l-none border-l-0 ml-0' : ''}
-          ${!seg.isEnd ? 'rounded-r-none border-r-0 mr-0' : ''}
-          ${seg.daysBetween > 1 && !seg.isStart ? 'px-0' : ''}`}
-        style={{ position: 'relative', zIndex: seg.daysBetween > 1 ? 1 : 0 }}
-      >
-        {renderEventContent(seg)}
+    <div key={i} className="overflow-hidden">
+        <div 
+          className={`p-1 bg-yellow-200 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200 text-[8px] sm:text-xs rounded  cursor-pointer transition-colors duration-200 hover:bg-opacity-40 dark:hover:bg-opacity-40
+            ${seg.isStart ? 'border-l-2 border-l-black/70 dark:border-l-white/50' : 'rounded-l-none'}
+            ${seg.isEnd ? 'border-r-2 border-r-black/70 dark:border-r-white/50' : 'rounded-r-none'}`}
+        >
+          <div className="flex justify-between">
+            <span className="font-semibold truncate">{seg.title}</span>
+            <span className="ml-1 whitespace-nowrap">
+              {new Date(seg.start).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+            </span>
+          </div>
       </div>
     </div>
   ));
@@ -161,16 +165,16 @@ function renderEventContent(seg: any) {
     );
   }
 }
-
 function renderMoreEventsIndicator(dayEvents: any[]) {
-  if (dayEvents.length > 3) {    return (
-      <p className="h-4.5 px-1.5 text-xs font-semibold text-t-quaternary">
-        <span className="sm:hidden">+{dayEvents.length - 3}</span>
-        <span className="hidden sm:inline">{dayEvents.length - 3} more...</span>
-      </p>
-    );
-  }
-  return null;
+  const extraEvents = dayEvents.length - 3;
+  if (extraEvents <= 0) return null;
+
+  return (
+    <button className="absolute bottom-0 right-0 m-1 px-2 py-0.5 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+      <span className="sm:hidden">+{extraEvents}</span>
+      <span className="hidden sm:inline">{extraEvents} more</span>
+    </button>
+  );
 }
 const CustomShadMonthlyPlugin = createPlugin({
   name: 'shadmonthly',

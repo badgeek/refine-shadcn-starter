@@ -35,9 +35,13 @@ import SettingsPage from "./pages/settings";
 import ProfilePage from "./pages/profile";
 import OrderPage from "./pages/order";
 import CalendarPage from "./pages/calendar";
+import { DataTablePage } from "./pages/restdatatable";
+import { NuqsAdapter } from 'nuqs/adapters/react'
+
 
 function App() {
   return (
+    <NuqsAdapter>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <BrowserRouter>
           <Refine
@@ -60,6 +64,10 @@ function App() {
               {
                 name: "profile",
                 list: "/profile",
+              },
+              {
+                name: "restdatatable",
+                list: "/restdatatable",
               },
               {
                 name: "orders",
@@ -133,6 +141,9 @@ function App() {
                 <Route path="/settings">
                   <Route index element={<SettingsPage />} />
                 </Route>
+                <Route path="/restdatatable">
+                  <Route index element={<DataTablePage />} />
+                </Route>
                 <Route path="/categories">
                   <Route index element={<CategoryList />} />
                   <Route path="create" element={<CategoryCreate />} />
@@ -159,6 +170,7 @@ function App() {
           </Refine>
         </BrowserRouter>
       </ThemeProvider>
+      </NuqsAdapter>
   );
 }
 

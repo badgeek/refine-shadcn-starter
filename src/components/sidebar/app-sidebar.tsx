@@ -40,6 +40,11 @@ const items = [
     url: "/calendar",
     icon: Calendar,
   },
+  {
+    title: "Datatable",
+    url: "/restdatatable",
+    icon: BarChart
+  },
   // {
   //   title: "Search",
   //   url: "#",

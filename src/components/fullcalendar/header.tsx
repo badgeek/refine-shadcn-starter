@@ -25,7 +25,7 @@ export function CalendarHeader({
   currentDay,
 }: CalendarHeaderProps) {
   return (
-    <div className="flex flex-col gap-4 border-b p-4 md:flex-row md:items-center md:justify-between">
+    <div className="flex flex-col gap-4 mb-4 md:flex-row md:items-center md:justify-between">
       <div className="flex items-center gap-3">
         <div className="flex size-14 flex-col items-start overflow-hidden rounded-lg border">
           <div className="flex h-6 w-full items-center justify-center bg-primary text-center text-xs font-semibold text-primary-foreground">

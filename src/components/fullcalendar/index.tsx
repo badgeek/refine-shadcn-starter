@@ -170,7 +170,7 @@ function renderMoreEventsIndicator(dayEvents: any[]) {
   if (extraEvents <= 0) return null;
 
   return (
-    <button className="absolute bottom-0 right-0 m-1 px-2 py-0.5 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+    <button className="absolute bottom-0 right-1 m-1 px-2 py-0.5 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
       <span className="sm:hidden">+{extraEvents}</span>
       <span className="hidden sm:inline">{extraEvents} more</span>
     </button>

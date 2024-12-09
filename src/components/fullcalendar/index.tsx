@@ -136,10 +136,10 @@ function renderEvents(dayEvents: any[]) {
     <div key={i} className="overflow-hidden">
         <div 
           className={`p-1 bg-yellow-200 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200 text-[8px] sm:text-xs rounded  cursor-pointer transition-colors duration-200 hover:bg-opacity-40 dark:hover:bg-opacity-40
-            ${seg.isStart ? 'border-l-2 border-l-black/70 dark:border-l-white/50' : 'rounded-l-none'}
-            ${seg.isEnd ? 'border-r-2 border-r-black/70 dark:border-r-white/50' : 'rounded-r-none'}`}
+            ${seg.isStart ? 'border-l-2 border-l-black/70 dark:border-l-white/50' : ''}
+            ${seg.isEnd ? 'border-r-2 border-r-black/70 dark:border-r-white/50' : ''}`}
         >
-          <div className="flex justify-between">
+          <div className="flex justify-between px-1">
             <span className="font-semibold truncate">{seg.title}</span>
             <span className="ml-1 whitespace-nowrap">
               {new Date(seg.start).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}

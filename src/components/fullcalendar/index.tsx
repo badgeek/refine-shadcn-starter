@@ -135,7 +135,7 @@ function renderEvents(dayEvents: any[]) {
   return dayEvents.slice(0, 3).map((seg: any, i: number) => (
     <div key={i} className="overflow-hidden">
         <div 
-          className={`p-1 bg-yellow-200 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200 text-[8px] sm:text-xs rounded  cursor-pointer transition-colors duration-200 hover:bg-opacity-40 dark:hover:bg-opacity-40
+          className={`p-1 bg-yellow-200 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200 text-[8px] sm:text-xs rounded cursor-pointer transition-colors duration-200 hover:bg-opacity-40 dark:hover:bg-opacity-40 border border-black/10 dark:border-white/10
             ${seg.isStart ? 'border-l-2 border-l-black/70 dark:border-l-white/50' : ''}
             ${seg.isEnd ? 'border-r-2 border-r-black/70 dark:border-r-white/50' : ''}`}
         >

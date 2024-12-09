@@ -1,48 +1,19 @@
-# service
+# Refine shadcn starter kit
 
-<div align="center" style="margin: 30px;">
-    <a href="https://refine.dev">
-    <img alt="refine logo" src="https://refine.ams3.cdn.digitaloceanspaces.com/readme/refine-readme-banner.png">
-    </a>
-</div>
-<br/>
-
-This [Refine](https://github.com/refinedev/refine) project was generated with [create refine-app](https://github.com/refinedev/refine/tree/master/packages/create-refine-app).
+This project is a starter kit for building modern web applications using the [Refine](https://refine.dev) framework and the [Shadcn UI](https://shadcn.com/) component library.
 
 ## Getting Started
 
-A React Framework for building internal tools, admin panels, dashboards & B2B apps with unmatched flexibility ✨
+To set up and run the project, follow these steps:
 
-Refine's hooks and components simplifies the development process and eliminates the repetitive tasks by providing industry-standard solutions for crucial aspects of a project, including authentication, access control, routing, networking, state management, and i18n.
+1. Install dependencies:
+   ```
+   make install
+   ```
 
-## Available Scripts
+2. Start the development server:
+   ```
+   make dev
+   ```
 
-### Running the development server.
-
-```bash
-    pnpm dev
-```
-
-### Building for production.
-
-```bash
-    pnpm build
-```
-
-### Running the production server.
-
-```bash
-    pnpm start
-```
-
-## Learn More
-
-To learn more about **Refine**, please check out the [Documentation](https://refine.dev/docs)
-
-- **REST Data Provider** [Docs](https://refine.dev/docs/core/providers/data-provider/#overview)
-- **React Router** [Docs](https://refine.dev/docs/core/providers/router-provider/)
-- **Custom Auth Provider** [Docs](https://refine.dev/docs/core/providers/auth-provider/)
-
-## License
-
-MIT
+These commands will set up your environment and start the application in development mode.

@@ -4,6 +4,9 @@ import { InputWithAddons } from "@/components/custom/data-table/input-with-addon
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/custom/data-table/slider";
 import { isArrayOfNumbers } from "@/lib/isarray";
+import React from "react";
+
+import { debounce } from "lodash";
 
 type DataTableFilterSliderProps<TData> = DataTableSliderFilterField<TData> & {
   table: Table<TData>;
@@ -27,6 +30,13 @@ export function DataTableFilterSlider<TData>({
         ? [filterValue[0], filterValue[0]]
         : filterValue
       : undefined;
+
+  const debouncedSetFilterValue = React.useCallback(
+    debounce((value: number[]) => {
+      column?.setFilterValue(value);
+    }, 5),
+    [column]
+  );
 
   return (
     <div className="grid gap-2">
@@ -54,7 +64,7 @@ export function DataTableFilterSlider<TData>({
                 Array.isArray(filters) && val < filters[1]
                   ? [val, filters[1]]
                   : [val, max];
-              column?.setFilterValue(newValue);
+              debouncedSetFilterValue(newValue);
             }}
           />
         </div>
@@ -81,7 +91,7 @@ export function DataTableFilterSlider<TData>({
                 Array.isArray(filters) && val > filters[0]
                   ? [filters[0], val]
                   : [min, val];
-              column?.setFilterValue(newValue);
+              debouncedSetFilterValue(newValue);
             }}
           />
         </div>
@@ -90,8 +100,9 @@ export function DataTableFilterSlider<TData>({
         min={min}
         max={max}
         value={filters || [min, max]}
-        onValueChange={(values) => column?.setFilterValue(values)}
+        onValueChange={(values) => debouncedSetFilterValue(values)}
       />
     </div>
   );
 }
+

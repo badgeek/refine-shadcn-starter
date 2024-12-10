@@ -52,6 +52,7 @@
     "cmdk": "1.0.0",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.5.1",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.468.0",
     "nuqs": "^2.2.3",
     "react": "^18.0.0",

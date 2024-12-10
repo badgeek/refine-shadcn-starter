@@ -35,7 +35,7 @@ import SettingsPage from "./pages/settings";
 import ProfilePage from "./pages/profile";
 import OrderPage from "./pages/order";
 import CalendarPage from "./pages/calendar";
-import { DataTablePage } from "./pages/restdatatable";
+import { DataTablePage } from "./pages/datatable";
 import { NuqsAdapter } from 'nuqs/adapters/react'
 
 

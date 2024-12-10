@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Main } from "@/components/layout/main";
 
 export const BlogPostShow = () => {
   const { edit, list } = useNavigation();
@@ -24,15 +25,16 @@ export const BlogPostShow = () => {
   });
 
   return (
-    <div className="container mx-auto py-10">
+    <Main>
+    <div className="container mx-auto ">
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold tracking-tight">Show Post</h1>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => list("blog_posts")}>
+            <Button className="h-9"  variant="outline" onClick={() => list("blog_posts")}>
               List
             </Button>
-            <Button onClick={() => edit("blog_posts", id ?? "")}>
+            <Button className="h-9" onClick={() => edit("blog_posts", id ?? "")}>
               Edit
             </Button>
           </div>
@@ -100,5 +102,6 @@ export const BlogPostShow = () => {
         </Card>
       </div>
     </div>
+    </Main>
   );
 };

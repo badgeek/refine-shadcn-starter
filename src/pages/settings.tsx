@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { SidebarMenu, SidebarMenuButton } from "@/components/ui/sidebar";
 import { SidebarMenuItem } from "@/components/ui/sidebar";
 import { useState } from "react";
+import { Main } from "@/components/layout/main";
 
 // Profile Form Component
 const ProfileForm = () => {
@@ -86,7 +87,7 @@ const ProfileForm = () => {
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex">
         <Button type="submit">Update profile</Button>
       </div>
     </form>
@@ -127,7 +128,7 @@ const AccountForm = () => {
         />
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex">
         <Button type="submit">Change Password</Button>
       </div>
     </form>
@@ -136,7 +137,7 @@ const AccountForm = () => {
 // Settings Sidebar Component
 const SettingsSidebar = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) => {
   return (
-    <aside className="-mx-4 lg:w-1/5">
+    <aside className="lg:w-1/5">
       <nav className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1">
         <SidebarMenu>
           <SidebarMenuItem>
@@ -180,7 +181,8 @@ export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('profile');
 
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6 w-full">
+    <Main>
+    <div className="flex-1 space-y-4 w-full">
       <div className="space-y-0.5">
         <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
         <p className="text-muted-foreground">
@@ -226,5 +228,6 @@ export default function SettingsPage() {
         </div>
       </div>
     </div>
+    </Main>
   );
 }

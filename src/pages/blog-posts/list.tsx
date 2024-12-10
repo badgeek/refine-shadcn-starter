@@ -41,6 +41,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Main } from "@/components/layout/main";
 
 interface ICategory {
   id: number;
@@ -175,35 +176,43 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
   }));
 
   return (
-    <div>
+    <Main>
+      {/* <div className="space-y-0.5"> */}
+        {/* <h2 className="text-2xl font-bold tracking-tight">Blog Posts</h2> */}
+        {/* <p className="text-muted-foreground">
+          View and manage your profile information and preferences.
+        </p> */}
+      {/* </div> */}
+      <div className="rounded-md border">
       <Table>
         <TableHeader>
-            {getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {!header.isPlaceholder &&
-                      flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
+          {getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <TableHead key={header.id}>
+                  {!header.isPlaceholder &&
+                    flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
+                </TableHead>
+              ))}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {getRowModel().rows.map((row) => (
+            <TableRow key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
+      </div>
       <Pagination>
         <PaginationContent>
           <PaginationItem>
@@ -253,6 +262,6 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
           </div>
         </PaginationContent>
       </Pagination>
-    </div>
+    </Main>
   );
 };

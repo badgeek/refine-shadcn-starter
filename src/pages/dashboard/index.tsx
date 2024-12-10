@@ -11,6 +11,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { Button } from "@/components/ui/button"
+import { Main } from "@/components/layout/main"
 
 interface StatCardProps {
   title: string
@@ -100,18 +101,18 @@ const StatCards = () => (
   </div>
 )
 
-const OverviewChart = ({ 
+const OverviewChart = ({
   activeChart,
   setActiveChart,
   chartData,
   chartConfig,
-  total 
+  total
 }: {
   activeChart: "desktop" | "mobile"
   setActiveChart: (chart: "desktop" | "mobile") => void
-  chartData: Array<{date: string, desktop: number, mobile: number}>
+  chartData: Array<{ date: string, desktop: number, mobile: number }>
   chartConfig: ChartConfig
-  total: {desktop: number, mobile: number}
+  total: { desktop: number, mobile: number }
 }) => (
   <Card className="col-span-4">
     <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
@@ -243,99 +244,108 @@ export default function DashboardPage() {
     []
   )
 
+//   <div className="space-y-0.5">
+//   <h2 className="text-2xl font-bold tracking-tight">My Profile</h2>
+//   <p className="text-muted-foreground">
+//     View and manage your profile information and preferences.
+//   </p>
+// </div>
+
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-        <div className="flex items-center space-x-2">
-          <div className="grid gap-2">
-            <Button
-              variant="outline" 
-              className="w-[260px] justify-start"
-              id="date"
-            >
-              <Calendar className="mr-2 h-4 w-4" />
-              Jan 20, 2023 - Feb 09, 2023
+    <Main>
+      <div className="flex-1 space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+          <div className="flex items-center space-x-2">
+            <div className="grid gap-2">
+              <Button
+                variant="outline"
+                className="w-[260px] justify-start h-9"
+                id="date"
+              >
+                <Calendar className="mr-2 h-4 w-4" />
+                Jan 20, 2023 - Feb 09, 2023
+              </Button>
+            </div>
+            <Button className="h-9">
+              Download
             </Button>
           </div>
-          <Button>
-            Download
-          </Button>
         </div>
-      </div>
-      <StatCards />
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 w-full">
-        <OverviewChart 
-          activeChart={activeChart}
-          setActiveChart={setActiveChart}
-          chartData={chartData}
-          chartConfig={chartConfig}
-          total={total}
-        />
-        <RecentSalesCard />
-      </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-full">
-        <Card>
-          <CardHeader>
-            <CardTitle>Top Referrers</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {["Google", "Twitter", "GitHub", "LinkedIn", "Facebook"].map((site) => (
-                <div key={site} className="flex items-center justify-between">
-                  <span className="text-sm font-medium">{site}</span>
-                  <span className="text-sm text-muted-foreground">
-                    {Math.floor(Math.random() * 1000)} visits
-                  </span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <StatCards />
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 w-full">
+          <OverviewChart
+            activeChart={activeChart}
+            setActiveChart={setActiveChart}
+            chartData={chartData}
+            chartConfig={chartConfig}
+            total={total}
+          />
+          <RecentSalesCard />
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-full">
+          <Card>
+            <CardHeader>
+              <CardTitle>Top Referrers</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {["Google", "Twitter", "GitHub", "LinkedIn", "Facebook"].map((site) => (
+                  <div key={site} className="flex items-center justify-between">
+                    <span className="text-sm font-medium">{site}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {Math.floor(Math.random() * 1000)} visits
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Active Users</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="text-2xl font-bold">{Math.floor(Math.random() * 1000)}</div>
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                    <div className="h-full bg-primary" style={{ width: "60%" }} />
+          <Card>
+            <CardHeader>
+              <CardTitle>Active Users</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="text-2xl font-bold">{Math.floor(Math.random() * 1000)}</div>
+                <div className="flex items-center gap-4">
+                  <div className="flex-1">
+                    <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                      <div className="h-full bg-primary" style={{ width: "60%" }} />
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-2">Current users</p>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-2">Current users</p>
-                </div>
-                <div className="flex-1">
-                  <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                    <div className="h-full bg-primary" style={{ width: "40%" }} />
+                  <div className="flex-1">
+                    <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                      <div className="h-full bg-primary" style={{ width: "40%" }} />
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-2">Previous week</p>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-2">Previous week</p>
                 </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Popular Pages</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {["/home", "/about", "/blog", "/contact", "/products"].map((page) => (
-                <div key={page} className="flex items-center justify-between">
-                  <span className="text-sm font-medium">{page}</span>
-                  <span className="text-sm text-muted-foreground">
-                    {Math.floor(Math.random() * 100)}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Popular Pages</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {["/home", "/about", "/blog", "/contact", "/products"].map((page) => (
+                  <div key={page} className="flex items-center justify-between">
+                    <span className="text-sm font-medium">{page}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {Math.floor(Math.random() * 100)}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    </Main>
   )
 }

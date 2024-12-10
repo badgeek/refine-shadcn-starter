@@ -68,21 +68,21 @@ export function CalendarHeader({
       <div className="flex items-center justify-between gap-3">
         <Tabs defaultValue={currentView} onValueChange={(value) => onViewChange?.(value as 'day' | 'week' | 'month')} className="w-fit">
           <TabsList className="flex rounded-lg border bg-background p-1">
-            <TabsTrigger value="day" className="flex items-center justify-center gap-2 rounded-md px-3 py-1.5 text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:bg-muted">
+            <TabsTrigger value="day" className="h-8 flex items-center justify-center gap-2 rounded-md px-3 py-1.5 text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:bg-muted">
               <GalleryVertical className="h-4 w-4" />
               <span className="data-[state=inactive]:hidden">Day</span>
             </TabsTrigger>
-            <TabsTrigger value="week" className="flex items-center justify-center gap-2 rounded-md px-3 py-1.5 text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:bg-muted">
+            <TabsTrigger value="week" className="h-8 flex items-center justify-center gap-2 rounded-md px-3 py-1.5 text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:bg-muted">
               <Tally3 className="h-4 w-4" />
               <span className="data-[state=inactive]:hidden">Week</span>
             </TabsTrigger>
-            <TabsTrigger value="month" className="flex items-center justify-center gap-2 rounded-md px-3 py-1.5 text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:bg-muted">
+            <TabsTrigger value="month" className="h-8 flex items-center justify-center gap-2 rounded-md px-3 py-1.5 text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:bg-muted">
               <Table className="h-4 w-4" />
               <span className="data-[state=inactive]:hidden">Month</span>
             </TabsTrigger>
           </TabsList>
         </Tabs>
-        <Button>
+        <Button size={"sm"} className="h-8">
           <PlusIcon className="mr-2 h-4 w-4" />
           Add Event
         </Button>

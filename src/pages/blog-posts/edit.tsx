@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Main } from "@/components/layout/main";
 
 export const BlogPostEdit = () => {
   const { list } = useNavigation();
@@ -48,11 +49,12 @@ export const BlogPostEdit = () => {
   }, [categoryOptions]);
 
   return (
-    <div className="container mx-auto py-10">
+    <Main>
+    <div className="container mx-auto">
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold tracking-tight">Edit Post</h1>
-          <Button variant="outline" onClick={() => list("blog_posts")}>
+          <Button className="h-9" variant="outline" onClick={() => list("blog_posts")}>
             List
           </Button>
         </div>
@@ -167,5 +169,6 @@ export const BlogPostEdit = () => {
         </Card>
       </div>
     </div>
+    </Main>
   );
 };

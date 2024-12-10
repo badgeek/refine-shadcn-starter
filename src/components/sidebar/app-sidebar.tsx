@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings, ChevronDown, Users, Mail, FileText, Bell, User2, ChevronUp, BarChart, Truck } from "lucide-react"
+import { Calendar, Home, Inbox, Search, Settings, ChevronDown, Users, Mail, FileText, Bell, User2, ChevronUp, BarChart, Truck, Command, GalleryVerticalEnd, AudioWaveform } from "lucide-react"
 
 import {
   Sidebar,
@@ -17,6 +17,25 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { useTheme } from "@/components/theme-provider"
 import { Sun, Moon } from "lucide-react"
 import { Link, useLogout } from "@refinedev/core"
+import { TeamSwitcher } from "../team-switcher"
+
+const teams = [
+  {
+    name: 'Shadcn Admin',
+    logo: Command,
+    plan: 'Vite + ShadcnUI',
+  },
+  {
+    name: 'Acme Inc',
+    logo: GalleryVerticalEnd,
+    plan: 'Enterprise',
+  },
+  {
+    name: 'Acme Corp.',
+    logo: AudioWaveform,
+    plan: 'Startup',
+  },
+]
 
 // Menu items.
 const items = [
@@ -212,9 +231,9 @@ function SidebarBranding() {
 
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar collapsible='icon' variant='floating'>
       <SidebarHeader>
-        <SidebarBranding />
+        <TeamSwitcher teams={teams} />
       </SidebarHeader>
       <SidebarContent>
         <CollapsibleMenuSection title="Help" items={items} />

@@ -1,7 +1,7 @@
-import { DataTable } from "./datatable-restapi";
-import { searchParamsCache } from "./search-params";
-import { columns } from "./columns";
-import { data, filterFields } from "./constants";
+import { DataTable } from "./component/table-main";
+import { searchParamsCache } from "./configs/search-params";
+import { columns } from "./component/table-columns";
+import { data, filterFields } from "./configs/constants";
 import { useParams } from "react-router-dom";
 
 export function DataTablePage() {

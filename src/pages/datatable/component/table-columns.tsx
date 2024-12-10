@@ -1,8 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Check, Minus } from "lucide-react";
-import { tagsColor } from "./constants";
-import type { ColumnSchema } from "./schema";
+import { tagsColor } from "../configs/constants";
+import type { ColumnSchema } from "../configs/schema";
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
 import { format, isSameDay } from "date-fns";
 import { isArrayOfDates, isArrayOfNumbers } from "@/lib/isarray";

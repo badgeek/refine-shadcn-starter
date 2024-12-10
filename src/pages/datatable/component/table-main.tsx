@@ -34,8 +34,8 @@ import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 import { cn } from "@/lib/utils";
 import { useLocalStorage } from "@/hooks/data-table/use-local-storage";
 import { useQueryStates } from "nuqs";
-import { columnFilterSchema } from "./schema";
-import { searchParamsParser } from "./search-params";
+import { columnFilterSchema } from "../configs/schema";
+import { searchParamsParser } from "../configs/search-params";
 
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

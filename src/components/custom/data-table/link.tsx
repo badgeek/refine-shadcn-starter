@@ -1,8 +1,7 @@
-import NextLink, { type LinkProps as NextLinkProps } from "next/link";
 import React from "react";
 import { cn } from "@/lib/utils";
 
-export interface LinkProps extends NextLinkProps {
+export interface LinkProps extends React.ComponentProps<"a"> {
   className?: string;
   children?: React.ReactNode;
 }
@@ -16,7 +15,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       : undefined;
 
     return (
-      <NextLink
+      <a
         className={cn(
           "text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground",
           "ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md",

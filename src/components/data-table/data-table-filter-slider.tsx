@@ -1,8 +1,8 @@
 import type { Table } from "@tanstack/react-table";
 import type { DataTableSliderFilterField } from "./types";
-import { InputWithAddons } from "@/components/custom/input-with-addons";
+import { InputWithAddons } from "@/components/custom/data-table/input-with-addons";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/custom/slider";
+import { Slider } from "@/components/custom/data-table/slider";
 import { isArrayOfNumbers } from "@/lib/isarray";
 
 type DataTableFilterSliderProps<TData> = DataTableSliderFilterField<TData> & {

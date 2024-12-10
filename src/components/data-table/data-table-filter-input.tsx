@@ -1,6 +1,6 @@
 import type { Table } from "@tanstack/react-table";
 import type { DataTableInputFilterField } from "./types";
-import { InputWithAddons } from "@/components/custom/input-with-addons";
+import { InputWithAddons } from "@/components/custom/data-table/input-with-addons";
 import { Label } from "@/components/ui/label";
 import { Search } from "lucide-react";
 

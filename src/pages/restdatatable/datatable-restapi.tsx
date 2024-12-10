@@ -25,14 +25,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/custom/table";
+} from "@/components/custom/data-table/table";
 import { DataTableFilterControls } from "@/components/data-table/data-table-filter-controls";
 import { DataTablePagination } from "@/components/data-table/data-table-pagination";
 import { DataTableFilterCommand } from "@/components/data-table/data-table-filter-command";
 import type { DataTableFilterField } from "@/components/data-table/types";
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 import { cn } from "@/lib/utils";
-import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useLocalStorage } from "@/hooks/data-table/use-local-storage";
 import { useQueryStates } from "nuqs";
 import { columnFilterSchema } from "./schema";
 import { searchParamsParser } from "./search-params";

@@ -1,7 +1,7 @@
 import type { Table } from "@tanstack/react-table";
 import { useMemo } from "react";
 import type { DataTableTimerangeFilterField } from "./types";
-import { DatePickerWithRange } from "@/components/custom/date-picker-with-range";
+import { DatePickerWithRange } from "@/components/custom/data-table/date-picker-with-range";
 import type { DateRange } from "react-day-picker";
 import { isArrayOfDates } from "@/lib/isarray";
 

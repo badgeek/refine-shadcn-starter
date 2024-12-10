@@ -13,7 +13,7 @@ import { LoaderCircle, Search, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-import { Kbd } from "@/components/custom/kbd";
+import { Kbd } from "@/components/custom/data-table/kbd";
 import type { Table } from "@tanstack/react-table";
 import { any, type z } from "zod";
 import type { DataTableFilterField } from "../types";
@@ -26,7 +26,7 @@ import {
   replaceInputByFieldType,
 } from "./utils";
 import { formatDistanceToNow } from "date-fns";
-import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useLocalStorage } from "@/hooks/data-table/use-local-storage";
 
 // FIXME: there is an issue on cmdk if I wanna only set a single slider value...
 

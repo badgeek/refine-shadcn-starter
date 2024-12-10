@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { DataTableCheckboxFilterField } from "./types";
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
-import { InputWithAddons } from "@/components/custom/input-with-addons";
+import { InputWithAddons } from "@/components/custom/data-table/input-with-addons";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 

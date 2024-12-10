@@ -7,7 +7,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/custom/sheet";
+} from "@/components/custom/data-table/sheet";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -17,7 +17,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import type { Table } from "@tanstack/react-table";
-import { Kbd } from "@/components/custom/kbd";
+import { Kbd } from "@/components/custom/data-table/kbd";
 import { cn } from "@/lib/utils";
 
 export interface DataTableSheetDetailsProps<TData> {

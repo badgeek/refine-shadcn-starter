@@ -9,7 +9,7 @@ import type { Table } from "@tanstack/react-table";
 import { LoaderCircle, PanelLeftClose, PanelLeftOpen, X } from "lucide-react";
 import { DataTableViewOptions } from "./data-table-view-options";
 import { useEffect } from "react";
-import { Kbd } from "@/components/custom/kbd";
+import { Kbd } from "@/components/custom/data-table/kbd";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

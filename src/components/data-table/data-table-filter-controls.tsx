@@ -5,7 +5,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/custom/accordion";
+} from "@/components/custom/data-table/accordion";
 import type React from "react";
 import type { DataTableFilterField } from "./types";
 import { DataTableFilterResetButton } from "./data-table-filter-reset-button";

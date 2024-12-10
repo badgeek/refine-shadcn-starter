@@ -21,7 +21,7 @@ import {
   Sortable,
   SortableDragHandle,
   SortableItem,
-} from "@/components/custom/sortable";
+} from "@/components/custom/data-table/sortable";
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;

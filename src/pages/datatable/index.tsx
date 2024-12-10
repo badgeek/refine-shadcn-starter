@@ -1,5 +1,5 @@
-import { DataTable } from "@/pages/restdatatable/datatable-restapi";
-import { searchParamsCache } from "@/pages/restdatatable/search-params";
+import { DataTable } from "./datatable-restapi";
+import { searchParamsCache } from "./search-params";
 import { columns } from "./columns";
 import { data, filterFields } from "./constants";
 import { useParams } from "react-router-dom";

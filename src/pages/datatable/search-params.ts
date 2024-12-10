@@ -14,8 +14,8 @@ import {
   RANGE_DELIMITER,
   SLIDER_DELIMITER,
 } from "@/lib/delimiters";
-import { REGIONS } from "@/pages/restdatatable/region";
-import { TAGS } from "@/pages/restdatatable/tag";
+import { REGIONS } from "./region";
+import { TAGS } from "./tag";
 
 export const parseAsSort = createParser({
   parse(queryValue) {

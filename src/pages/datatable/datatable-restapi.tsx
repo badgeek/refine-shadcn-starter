@@ -116,9 +116,10 @@ export function DataTable<TData, TValue>({
     setSearch(search);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columnFilters]);
-
+  
   return (
     <div className="flex w-full h-full flex-col gap-3 sm:flex-row">
+      {/* BEGIN: Filter controls section */}
       <div
         className={cn(
           "w-full p-1 sm:min-w-52 sm:max-w-52 sm:self-start md:min-w-64 md:max-w-64",
@@ -133,37 +134,49 @@ export function DataTable<TData, TValue>({
           />
         </div>
       </div>
+      {/* END: Filter controls section */}
+
+      {/* BEGIN: Main content section */}
       <div className="flex max-w-full flex-1 flex-col gap-4 overflow-hidden p-1">
+        {/* BEGIN: Filter command component */}
         <DataTableFilterCommand
           table={table}
           schema={columnFilterSchema}
           filterFields={filterFields}
         />
+        {/* END: Filter command component */}
+
+        {/* BEGIN: Toolbar component */}
         <DataTableToolbar
           table={table}
           controlsOpen={controlsOpen}
           setControlsOpen={setControlsOpen}
         />
+        {/* END: Toolbar component */}
+
+        {/* BEGIN: Table container */}
         <div className="rounded-md border">
           <Table>
+            {/* BEGIN: Table header */}
             <TableHeader className="bg-muted/50">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id} className="hover:bg-transparent">
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                      </TableHead>
-                    );
-                  })}
+                  {headerGroup.headers.map((header) => (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  ))}
                 </TableRow>
               ))}
             </TableHeader>
+            {/* END: Table header */}
+
+            {/* BEGIN: Table body */}
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
@@ -192,10 +205,16 @@ export function DataTable<TData, TValue>({
                 </TableRow>
               )}
             </TableBody>
+            {/* END: Table body */}
           </Table>
         </div>
+        {/* END: Table container */}
+
+        {/* BEGIN: Pagination component */}
         <DataTablePagination table={table} />
+        {/* END: Pagination component */}
       </div>
+      {/* END: Main content section */}
     </div>
   );
 }

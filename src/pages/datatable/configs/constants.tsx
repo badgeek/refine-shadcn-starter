@@ -4,7 +4,7 @@ import type {
   DataTableFilterField,
   Option,
 } from "@/components/data-table/types";
-import { data } from "./data";
+import { data } from "./dummy-data";
 
 export const REGIONS = ["ams", "fra", "gru", "hkg", "iad", "syd"] as const;
 export const TAGS = ["web", "api", "enterprise", "app"] as const;

@@ -2,7 +2,7 @@ import { DataTable } from "./component/table-main";
 import { searchParamsCache } from "./configs/search-params";
 import { columns } from "./component/table-columns";
 import { filterFields } from "./configs/constants";
-import { data } from "./configs/data";
+import { data } from "./configs/dummy-data";
 import { useParams } from "react-router-dom";
 
 export function DataTablePage() {

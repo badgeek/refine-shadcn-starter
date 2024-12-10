@@ -3,8 +3,8 @@ import {
   RANGE_DELIMITER,
   SLIDER_DELIMITER,
 } from "@/lib/delimiters";
-import { REGIONS } from "./region";
-import { TAGS } from "./tag";
+import { REGIONS } from "./constants";
+import { TAGS } from "./constants";
 import { z } from "zod";
 
 // https://github.com/colinhacks/zod/issues/2985#issue-2008642190

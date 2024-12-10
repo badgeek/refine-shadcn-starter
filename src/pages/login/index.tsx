@@ -67,13 +67,12 @@ const LoginForm = () => {
     </form>
   );
 };
-
 export const Login = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-primary/10 to-background">
-      <div className="w-full max-w-md p-8 space-y-8 bg-background/80 rounded-2xl shadow-xl backdrop-blur-xl border border-border/50">
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="w-full max-w-md p-8 space-y-8 bg-background/80 rounded-2xl shadow-xl backdrop-blur-xl border border-primary/10">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tighter text-center bg-clip-text" >Welcome back</h1>
+          <h1 className="text-3xl font-bold tracking-tighter text-center bg-clip-text text-primary">Welcome back</h1>
           <p className="text-sm text-muted-foreground text-center">Sign in to continue to your account</p>
         </div>
 

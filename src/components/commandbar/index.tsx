@@ -1,10 +1,13 @@
 import * as React from "react"
 import {
+  BarChart,
   Calculator,
   Calendar,
   CreditCard,
+  FileText,
   Settings,
   Smile,
+  Truck,
   User,
 } from "lucide-react"
 
@@ -18,9 +21,12 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command"
+import { useNavigate } from "react-router-dom"
 
 export function CommandBar() {
   const [open, setOpen] = React.useState(false)
+
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -34,42 +40,77 @@ export function CommandBar() {
     return () => document.removeEventListener("keydown", down)
   }, [])
 
+
+  const runCommand = React.useCallback(
+    (command: () => unknown) => {
+      setOpen(false)
+      command()
+    },
+    [setOpen]
+  )
+
   return (
     <>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem>
+          <CommandGroup heading="Pages">
+            <CommandItem
+              onSelect={() => {
+                runCommand(() => navigate("/dashboard"))
+              }}
+            >
+              <BarChart />
+              <span>Dashboard</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => {
+                runCommand(() => navigate("/calendar"))
+              }}
+            >
               <Calendar />
               <span>Calendar</span>
             </CommandItem>
-            <CommandItem>
-              <Smile />
-              <span>Search Emoji</span>
+            <CommandItem
+              onSelect={() => {
+                runCommand(() => navigate("/blog-posts"))
+              }}
+            >
+              <FileText />
+              <span>Blog Posts</span>
             </CommandItem>
-            <CommandItem>
-              <Calculator />
-              <span>Calculator</span>
+            <CommandItem
+              onSelect={() => {
+                runCommand(() => navigate("/restdatatable"))
+              }}
+            >
+              <BarChart />
+              <span>Data Table</span>
             </CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Settings">
-            <CommandItem>
-              <User />
-              <span>Profile</span>
-              <CommandShortcut>⌘P</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <CreditCard />
-              <span>Billing</span>
-              <CommandShortcut>⌘B</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
+            <CommandItem
+              onSelect={() => {
+                runCommand(() => navigate("/settings"))
+              }}
+            >
               <Settings />
               <span>Settings</span>
-              <CommandShortcut>⌘S</CommandShortcut>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => {
+                runCommand(() => navigate("/profile"))
+              }}
+            >
+              <User />
+              <span>Profile</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => {
+                runCommand(() => navigate("/orders"))
+              }}
+            >
+              <Truck />
+              <span>Orders</span>
             </CommandItem>
           </CommandGroup>
         </CommandList>

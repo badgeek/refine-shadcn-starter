@@ -64,7 +64,7 @@ export default function ProfilePage() {
     <Main>
       <div className="flex-1 space-y-4">
         <div className="space-y-0.5">
-          <h2 className="text-2xl font-bold tracking-tight">My Profile</h2>
+          <h2 className="text-3xl font-bold tracking-tight">My Profile</h2>
           <p className="text-muted-foreground">
             View and manage your profile information and preferences.
           </p>

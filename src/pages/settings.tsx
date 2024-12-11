@@ -138,7 +138,7 @@ const AccountForm = () => {
 const SettingsSidebar = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) => {
   return (
     <aside className="lg:w-1/5">
-      <nav className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1">
+      <nav className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 -ml-2">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton 

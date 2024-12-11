@@ -213,55 +213,67 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
         </TableBody>
       </Table>
       </div>
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationLink onClick={() => setPageIndex(0)}>
-              <ArrowLeftToLine className="h-4 w-4" />
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationPrevious onClick={() => previousPage()}>
-              <ChevronLeftIcon className="h-4 w-4" />
-            </PaginationPrevious>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext onClick={() => nextPage()}>
-              <ChevronRightIcon className="h-4 w-4" />
-            </PaginationNext>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink onClick={() => setPageIndex(getPageCount() - 1)}>
-              <ArrowRightToLine className="h-4 w-4" />
-            </PaginationLink>
-          </PaginationItem>
-          <div className="flex items-center space-x-6 lg:space-x-8">
-            <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-              Page {getState().pagination.pageIndex + 1} of {getPageCount()}
-            </div>
-            <div className="flex items-center space-x-2">
-              <p className="text-sm font-medium">Rows per page</p>
-              <Select
-                value={`${getState().pagination.pageSize}`}
-                onValueChange={(value: any) => {
-                  setPageSize(Number(value));
-                }}
-              >
-                <SelectTrigger className="h-8 w-[70px]">
-                  <SelectValue placeholder={getState().pagination.pageSize} />
-                </SelectTrigger>
-                <SelectContent side="top">
-                  {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-                    <SelectItem key={pageSize} value={`${pageSize}`}>
-                      {pageSize}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPageIndex(0)}
+            disabled={!getCanPreviousPage()}
+          >
+            <ArrowLeftToLine className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => previousPage()}
+            disabled={!getCanPreviousPage()}
+          >
+            <ChevronLeftIcon className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => nextPage()}
+            disabled={!getCanNextPage()}
+          >
+            <ChevronRightIcon className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPageIndex(getPageCount() - 1)}
+            disabled={!getCanNextPage()}
+          >
+            <ArrowRightToLine className="h-4 w-4" />
+          </Button>
+        </div>
+        <div className="flex items-center space-x-6 lg:space-x-8">
+          <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+            Page {getState().pagination.pageIndex + 1} of {getPageCount()}
           </div>
-        </PaginationContent>
-      </Pagination>
+          <div className="flex items-center space-x-2">
+            <p className="text-sm font-medium">Rows per page</p>
+            <Select
+              value={`${getState().pagination.pageSize}`}
+              onValueChange={(value: string) => {
+                setPageSize(Number(value));
+              }}
+            >
+              <SelectTrigger className="h-8 w-[70px]">
+                <SelectValue placeholder={getState().pagination.pageSize} />
+              </SelectTrigger>
+              <SelectContent side="top">
+                {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+                  <SelectItem key={pageSize} value={`${pageSize}`}>
+                    {pageSize}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </div>
     </Main>
   );
 };

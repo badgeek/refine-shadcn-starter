@@ -27,14 +27,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -42,6 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Main } from "@/components/layout/main";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ICategory {
   id: number;
@@ -129,13 +122,13 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
     [],
   );
 
-  const { edit, show, create } = useNavigation();
+  const { edit, show } = useNavigation();
 
   const {
     getHeaderGroups,
     getRowModel,
     refineCore: {
-      tableQuery: { data: tableData },
+      tableQueryResult: { isLoading, data: tableData },
     },
     getState,
     setPageIndex,
@@ -145,7 +138,6 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
     nextPage,
     previousPage,
     setPageSize,
-    getColumn,
     setOptions,
   } = useTable({
     columns,
@@ -177,41 +169,47 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
 
   return (
     <Main>
-      {/* <div className="space-y-0.5"> */}
-        {/* <h2 className="text-2xl font-bold tracking-tight">Blog Posts</h2> */}
-        {/* <p className="text-muted-foreground">
-          View and manage your profile information and preferences.
-        </p> */}
-      {/* </div> */}
       <div className="rounded-md border">
-      <Table>
-        <TableHeader>
-          {getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
-                  {!header.isPlaceholder &&
-                    flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
-                </TableHead>
-              ))}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {getRowModel().rows.map((row) => (
-            <TableRow key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+        <Table>
+          <TableHeader>
+            {getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {!header.isPlaceholder &&
+                      flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, index) => (
+                <TableRow key={index}>
+                  {columns.map((column) => (
+                    <TableCell key={column.id}>
+                      <Skeleton className="h-6 w-full" />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
       </div>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">

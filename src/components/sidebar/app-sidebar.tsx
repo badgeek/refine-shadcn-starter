@@ -60,6 +60,11 @@ const items = [
     icon: Calendar,
   },
   {
+    title: "Room Planner",
+    url: "/room-planner",
+    icon: Calendar,
+  },
+  {
     title: "Datatable",
     url: "/restdatatable",
     icon: BarChart

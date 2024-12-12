@@ -74,6 +74,10 @@ function App() {
                 list: "/orders",
               },
               {
+                name: "Room Planner",
+                list: "/room-planner",
+              },
+              {
                 name: "blog_posts",
                 list: "/blog-posts",
                 create: "/blog-posts/create",
@@ -131,6 +135,9 @@ function App() {
                 </Route>
                 <Route path="/calendar">
                   <Route index element={<CalendarPage />} />
+                </Route>
+                <Route path="/room-planner">
+                  <Route index element={<RoomAvailability />} />
                 </Route>
                 <Route path="/profile">
                   <Route index element={<ProfilePage />} />

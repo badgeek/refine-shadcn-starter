@@ -1,9 +1,9 @@
 import {
-  IconCash,
-  IconShield,
-  IconUsersGroup,
-  IconUserShield,
-} from '@tabler/icons-react'
+  Banknote,
+  ShieldCheck,
+  Users,
+  UserCheck,
+} from 'lucide-react'
 import { UserStatus } from './schema'
 
 export const callTypes = new Map<UserStatus, string>([
@@ -20,21 +20,21 @@ export const userTypes = [
   {
     label: 'Superadmin',
     value: 'superadmin',
-    icon: IconShield,
+    icon: ShieldCheck,
   },
   {
     label: 'Admin',
     value: 'admin',
-    icon: IconUserShield,
+    icon: UserCheck,
   },
   {
     label: 'Manager',
     value: 'manager',
-    icon: IconUsersGroup,
+    icon: Users,
   },
   {
     label: 'Cashier',
     value: 'cashier',
-    icon: IconCash,
+    icon: Banknote,
   },
 ] as const

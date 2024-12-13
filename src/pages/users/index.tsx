@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { IconMailPlus, IconUserPlus } from '@tabler/icons-react'
 import useDialogState from '@/hooks/use-dialog-state'
 import { Button } from '@/components/button'
 // import { Header } from '@/components/layout/header'
@@ -17,6 +16,7 @@ import UsersContextProvider, {
 } from './context/users-context'
 import { User, userListSchema } from './data/schema'
 import { users } from './data/users'
+import { Mail, UserPlus } from 'lucide-react'
 
 export function UserPage() {
   // Dialog states
@@ -51,10 +51,10 @@ export function UserPage() {
               className='space-x-1'
               onClick={() => setOpen('invite')}
             >
-              <span>Invite User</span> <IconMailPlus size={18} />
+              <span>Invite User</span> <Mail size={18} />
             </Button>
             <Button className='space-x-1' onClick={() => setOpen('add')}>
-              <span>Add User</span> <IconUserPlus size={18} />
+              <span>Add User</span> <UserPlus size={18} />
             </Button>
           </div>
         </div>

@@ -126,7 +126,7 @@ export function DataTable<TData, TValue>({
           !controlsOpen && "hidden"
         )}
       >
-        <div className="-m-1 h-full p-1">
+        <div className="-m-1 h-full p-1 border">
           <DataTableFilterControls
             table={table}
             columns={columns}

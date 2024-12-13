@@ -12,9 +12,15 @@ export function DataTablePage() {
 
   return (
     <Main>
-        <DataTable
-          columns={columns}
-          data={data}
+      <div>
+        <h2 className="text-2xl font-bold tracking-tight">User List</h2>
+        <p className="text-muted-foreground">
+          Manage your users and their roles here.
+        </p>
+      </div>
+      <DataTable
+        columns={columns}
+        data={data}
           filterFields={filterFields}
           defaultColumnFilters={Object.entries(search)
             .map(([key, value]) => ({

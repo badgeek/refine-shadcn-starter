@@ -63,12 +63,12 @@ export default function ProfilePage() {
   return (
     <Main>
       <div className="flex-1 space-y-4">
-        <div className="space-y-0.5">
-          <h2 className="text-3xl font-bold tracking-tight">My Profile</h2>
-          <p className="text-muted-foreground">
-            View and manage your profile information and preferences.
-          </p>
-        </div>
+      <div>
+            <h2 className='text-2xl font-bold tracking-tight'>My Profile</h2>
+            <p className='text-muted-foreground'>
+              View and manage your profile information and preferences.
+            </p>
+          </div>
 
         <div className="grid gap-6 md:grid-cols-12">
           <Card className="md:col-span-4 lg:col-span-3">

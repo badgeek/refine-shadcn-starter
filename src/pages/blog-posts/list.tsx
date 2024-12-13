@@ -169,6 +169,12 @@ export const BlogPostList: React.FC<IResourceComponentsProps> = () => {
 
   return (
     <Main>
+      <div>
+        <h2 className='text-2xl font-bold tracking-tight'>Blog Posts</h2>
+        <p className='text-muted-foreground'>
+          Manage your blog posts here.
+        </p>
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

@@ -37,7 +37,7 @@ import OrderPage from "./pages/order";
 import CalendarPage from "./pages/calendar";
 import { DataTablePage } from "./pages/datatable";
 import { NuqsAdapter } from 'nuqs/adapters/react'
-import ResourcePlanner from "./pages/resource-planner";
+// import ResourcePlanner from "./pages/resource-planner";
 import { RoomAvailability } from "./pages/room/RoomAvailability";
 import { User } from "lucide-react";
 import { UserPage } from "./pages/users";
@@ -152,9 +152,9 @@ function App() {
                 <Route path="/room-planner">
                   <Route index element={<RoomAvailability />} />
                 </Route>
-                <Route path="/resource-planner">
+                {/* <Route path="/resource-planner">
                   <Route index element={<ResourcePlanner />} />
-                </Route>
+                </Route> */}
                 <Route path="/profile">
                   <Route index element={<ProfilePage />} />
                 </Route>

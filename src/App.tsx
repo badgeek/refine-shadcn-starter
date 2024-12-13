@@ -52,9 +52,6 @@ function App() {
             dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
             routerProvider={routerBindings}
             authProvider={authProvider}
-            options={{
-              disableTelemetry: true,
-            }}
             resources={[
               {
                 name: "dashboard",
@@ -118,6 +115,7 @@ function App() {
               warnWhenUnsavedChanges: true,
               useNewQueryKeys: true,
               projectId: "VHATS2-PecHcr-wD0PyP",
+              disableTelemetry: true,
             }}
           >
             <Routes>

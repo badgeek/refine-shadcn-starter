@@ -37,6 +37,9 @@ import OrderPage from "./pages/order";
 import CalendarPage from "./pages/calendar";
 import { DataTablePage } from "./pages/datatable";
 import { NuqsAdapter } from 'nuqs/adapters/react'
+import { RoomAvailability } from "./pages/room/RoomAvailability";
+import { User } from "lucide-react";
+import { UserPage } from "./pages/users";
 
 
 function App() {
@@ -72,6 +75,10 @@ function App() {
               {
                 name: "orders",
                 list: "/orders",
+              },
+              {
+                name: "users",
+                list: "/users",
               },
               {
                 name: "Room Planner",
@@ -147,6 +154,9 @@ function App() {
                 </Route>
                 <Route path="/settings">
                   <Route index element={<SettingsPage />} />
+                </Route>
+                <Route path="/users">
+                  <Route index element={<UserPage />} />
                 </Route>
                 <Route path="/restdatatable">
                   <Route index element={<DataTablePage />} />

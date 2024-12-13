@@ -60,6 +60,11 @@ const items = [
     icon: Calendar,
   },
   {
+    title: "Users",
+    url: "/users",
+    icon: Users,
+  },
+  {
     title: "Room Planner",
     url: "/room-planner",
     icon: Calendar,

@@ -95,10 +95,14 @@ export function RoomAvailability() {
 
     return (
         <Main>
-            <Card className="mx-auto">
-                <div className="p-6 border-b">
+                            <div className="border-b">
                     <div className="flex justify-between items-center">
-                        <h2 className="text-3xl font-bold">Room Availability</h2>
+                        <div>
+                            <h2 className="text-2xl font-bold tracking-tight">Room Availability</h2>
+                            <p className="text-muted-foreground">
+                                Manage your rooms and their availability here.
+                            </p>
+                        </div>
                         <div className="flex gap-3">
                             {Object.keys(statusConfig).map((status) => (
                                 <StatusBadge key={status} status={status as keyof typeof statusConfig} />
@@ -106,6 +110,8 @@ export function RoomAvailability() {
                         </div>
                     </div>
                 </div>
+            <Card className="">
+
 
                 <div className="">
                     <div className="grid grid-cols-8 gap-px bg-gray-200 dark:bg-gray-900">

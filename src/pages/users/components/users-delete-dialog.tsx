@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { IconAlertTriangle } from '@tabler/icons-react'
+import { AlertTriangle } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Input } from '@/components/ui/input'
@@ -42,7 +42,7 @@ export function UsersDeleteDialog({ open, onOpenChange, currentRow }: Props) {
       disabled={value.trim() !== currentRow.username}
       title={
         <span className='text-destructive'>
-          <IconAlertTriangle
+          <AlertTriangle
             className='mr-1 inline-block stroke-destructive'
             size={18}
           />{' '}

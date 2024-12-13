@@ -37,6 +37,7 @@ import OrderPage from "./pages/order";
 import CalendarPage from "./pages/calendar";
 import { DataTablePage } from "./pages/datatable";
 import { NuqsAdapter } from 'nuqs/adapters/react'
+import ResourcePlanner from "./pages/resource-planner";
 import { RoomAvailability } from "./pages/room/RoomAvailability";
 import { User } from "lucide-react";
 import { UserPage } from "./pages/users";
@@ -51,6 +52,7 @@ function App() {
             dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
             routerProvider={routerBindings}
             authProvider={authProvider}
+            disableTelemetry={true}
             resources={[
               {
                 name: "dashboard",
@@ -79,6 +81,10 @@ function App() {
               {
                 name: "users",
                 list: "/users",
+              },
+              {
+                name: "resources",
+                list: "/resource-planner",
               },
               {
                 name: "Room Planner",
@@ -145,6 +151,9 @@ function App() {
                 </Route>
                 <Route path="/room-planner">
                   <Route index element={<RoomAvailability />} />
+                </Route>
+                <Route path="/resource-planner">
+                  <Route index element={<ResourcePlanner />} />
                 </Route>
                 <Route path="/profile">
                   <Route index element={<ProfilePage />} />

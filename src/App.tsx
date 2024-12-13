@@ -52,7 +52,9 @@ function App() {
             dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
             routerProvider={routerBindings}
             authProvider={authProvider}
-            disableTelemetry={true}
+            options={{
+              disableTelemetry: true,
+            }}
             resources={[
               {
                 name: "dashboard",
